@@ -1,0 +1,32 @@
+<!-- Jinja page displaying search results -->
+{% extends 'base.html' %}
+{% block title %}Hike Search page{% endblock %}
+
+   {% block content %}
+
+        <h1>Search your favorite hike!</h1><br>
+
+
+<!-- Adding maps below on the results page. 
+@TODO: Note that this is just a dummy map, and I need to pass live variables here
+to display markers according to the search_results -->
+
+        <form action="/search-hike" id="search-form" method="POST">
+            <div id="boxes">
+                Enter the Zipcode: <input type="text" name="zipcode"><br><br>
+                Enter the City: <input type="text" name="city"><br><br>
+                Enter the State: <input type="text" name="state"><br><br>
+                Select the radius range: 
+                <select name="radius" required>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select><br>
+
+                <input type="submit" name="search" value="Go" />
+        </form>
+<!--         // <script src="../static/map_search.js"></script> -->
+
+
+   {% endblock %}

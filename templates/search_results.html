@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Welcome to the World of Hikes{% endblock %}
+
+   {% block content %}
+
+
+    {% if result_list | length == 0 %}
+        <p> Sorry, there are no hikes listed :(</p>
+
+    {% else %}
+    <p> The results are: </p>
+        {% for result in result_list %}
+        <ul>
+            <li>Trail: {{ (result["name"]) }}</li>
+
+        </ul>
+        {% endfor %}
+    {% endif %}
+
+    
+    <div id="map">           
+        <script>
+          function initMap() {
+          // Taking the latlong dict values from python function
+          var locArray = {{ latlong_list|tojson }};
+          // adding the center of the search place to the first marker out of the list
+          var locCenter= locArray[0];
+          console.log(locArray);
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: locCenter
+          });
+          for (var i = 0; i < locArray.length; i++){
+          var marker = new google.maps.Marker({
+            position: locArray[i],
+            map: map
+            });
+         }  //End of for loop
+    }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsgrGl18S5YRU8j7W_F25w9J3hFVvxtx0&callback=initMap"
+        async defer></script>  
+    </div>
+
+
+   {% endblock %}

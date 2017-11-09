@@ -1,0 +1,18 @@
+For API - Instead of passing params, I am customizing the URL itself to include params into it
+
+
+Title: Customizing URL by including params (using urllib module)
+
+>>> payload
+{'q[city_cont]': 'San+Jose', 'q[state_cont]': 'California', 'radius': '20', 'q[activities_activity_type_name_eq]': 'hiking'}
+>>> urllib.urlencode(payload)
+'q%5Bcity_cont%5D=San%2BJose&q%5Bstate_cont%5D=California&radius=20&q%5Bactivities_activity_type_name_eq%5D=hiking'
+>>> urllib.urlencode(payload).replace('%5B', '[')
+'q[city_cont%5D=San%2BJose&q[state_cont%5D=California&radius=20&q[activities_activity_type_name_eq%5D=hiking'
+>>> urllib.urlencode(payload).replace('%2B', ']')
+'q%5Bcity_cont%5D=San]Jose&q%5Bstate_cont%5D=California&radius=20&q%5Bactivities_activity_type_name_eq%5D=hiking'
+>>> urllib.urlencode(payload).replace('%5D', ']').replace('%5B', '[')
+'q[city_cont]=San%2BJose&q[state_cont]=California&radius=20&q[activities_activity_type_name_eq]=hiking'
+>>> payload['q[city_cont]'] = 'San Jose'
+>>> urllib.urlencode(payload).replace('%5D', ']').replace('%5B', '[')
+'q[city_cont]=San+Jose&q[state_cont]=California&radius=20&q[activities_activity_type_name_eq]=hiking'

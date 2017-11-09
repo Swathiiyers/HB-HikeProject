@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Welcome to the World of Hikes{% endblock %}
+
+   {% block content %}
+    <div id='options'>
+        <h1>Where do you want to go first</h1><br>
+
+        <img id='welcomeimg' src = 'https://az616578.vo.msecnd.net/files/2016/03/30/635948972872567046-1775666517_hikers3.jpg' align='center'
+        height=300px width= 300px><br><br>
+
+        <form action="/choose-login" method="GET">
+            <input type="submit" name="login" value="Login">
+        </form>
+        <form action="/choose-search" method="GET">
+            <input type="submit" name="search" value="search">
+        </form>
+    </div>
+
+   {% endblock %}

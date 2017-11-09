@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <h1>Search your favorite hike!</h1><br>
+
+<!--         <img src = 'https://az616578.vo.msecnd.net/files/2016/03/30/635948972872567046-1775666517_hikers3.jpg'><br><br> -->
+
+<form action="/search-maps" method="POST">
+  
+  <h3>Search by Maps<h3>
+  <br>
+
+  <div id="map">           
+      <script>
+        var map;
+        // location San Jose
+        var loc = {lat: 37.3382, lng: -121.81572};
+        function initMap() {
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: loc,
+            zoom: 8
+          });
+        var marker = new google.maps.Marker({
+            position: loc,
+            map: map
+});
+        }
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsgrGl18S5YRU8j7W_F25w9J3hFVvxtx0&callback=initMap"
+      async defer></script>  
+  </div>
+
+</form>
