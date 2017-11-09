@@ -56,7 +56,7 @@ def get_address(city, radius, state):
 
     # Concatenating base_url with final_url, to get the final_url to pass to API request.get
     final_url = base_url + param_url
-    my_key = os.environ["X-MASHAPE-KEY"]
+    my_key = os.environ["X_MASHAPE_KEY"]
     headers = {"X-Mashape-Key": my_key, "Accept": "text/plain"}
 
     response = requests.get(final_url, headers=headers)
@@ -68,6 +68,7 @@ def get_address(city, radius, state):
 # Helper function for the '/search-hike route
 # Takes the list of jsonified dict, and returns the list of latlong values
 def get_latlongs(result_list):
+    """Get the jsonified response from the app view, return list of latlongs"""
     # Initializing list of Latlong values
     latlong_list = []
 
@@ -90,6 +91,7 @@ def get_latlongs(result_list):
 def search_hike():
     """Search hike by location or zipcode via API request,
     push results to results page"""
+    google_map_key = os.environ["GOOGLE_MAPS_KEY"]
 
     city = request.form["city"]
     state = request.form["state"]
@@ -101,7 +103,7 @@ def search_hike():
 
     latlong_list = get_latlongs(result_list)
 
-    return render_template("search_results.html", result_list=result_list, latlong_list=latlong_list)
+    return render_template("search_results.html", result_list=result_list, latlong_list=latlong_list, google_map_key=google_map_key)
 
 
 # @TODO: Fixme: How to recognize what button clicked and
