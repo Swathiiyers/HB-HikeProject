@@ -106,8 +106,16 @@ def search_hike():
     return render_template("search_results.html", result_list=result_list, latlong_list=latlong_list, google_map_key=google_map_key)
 
 
-# @TODO: Fixme: How to recognize what button clicked and
-# what to do ?
+# @Note: REDUNDANT CODE:
+# This piece of code needs to be integrated with the above /search-hike route,
+#     created separate button just for testing purpose
+@app.route("/search-by-loc")
+def find_loc():
+    """Go to the my location search page"""
+
+    return render_template("find_my_location_search.html")
+
+
 
 
 ################################################################################
