@@ -9,17 +9,17 @@
         height=300px width= 300px><br><br>
 
         <form action="/choose-login" method="GET">
-            <input type="submit" name="login" value="Login">
+            <input type="submit" id="login" name="login" value="Login">
         </form>
         <form action="/choose-search" method="GET">
-            <input type="submit" name="search" value="search">
+            <input type="submit" id="search" name="search" value="search">
         </form>
 
 <!-- @Note: REDUNDANT CODE:
 This piece of code needs to be integrated with the above /choose-search route, 
     created separate button just for testing purpose -->
         <form action="/search-by-loc" method="GET">
-            <input type="submit" name="loc" value="Find my location">
+            <input type="submit" id="loc" name="loc" value="Find my location">
         </form>
     </div>
 
