@@ -68,26 +68,6 @@ print latlong_list
 # >>> results["places"][0]["lon"]
 # -121.81572
 
-# Below code for jinja reference:
-
-    # Hi {{ person }}! I think you're :
-    #     {% if compliment | length == 1 %}
-    #         {{ compliment[0] }}
-
-    #     {% else %}
-    #         {% for word in compliment[:-1] %}
-    #             {{ word }},
-    #         {% endfor %}
-    #         and {{ compliment[-1] }}.
-    #     {% endif %}
-
-
-# response = requests.get("https://trailapi-trailapi.p.mashape.com/?limit=20&q[activities_activity_type_name_eq]=hiking&q[city_cont]=San+Jose&q[state_cont]=California&radius=20",
-#   headers={
-#     "X-Mashape-Key": "rQoJ3qTszpmshKM5FExXPQ4NDLQlp1lvWp9jsnwPbf3Lwcutq7",
-#     "Accept": "text/plain"
-#   }
-# )
 
 
 # Jinja display of other fields:
@@ -96,4 +76,34 @@ print latlong_list
 #             <li>Description: {{ (result["description"]) }}</li>
 #             <li>Directions: {{ (result["directions"]) }}</li>
 #             <li>Latitude: {{ (result["lat"]) }}</li>
-#             <li>Longitude: {{ (result["lon"]) }}</li><br><br> -->
+# #             <li>Longitude: {{ (result["lon"]) }}</li><br><br> -->
+# Take inputs from position.coords.lat and pass them into hidden inputs, from hidden inputs, pass values to python server
+# navigator.geolocation.getCurrentPosition( function (position) { alert(position.coords.latitude) })
+
+# button.addEventListener('click', function () {
+
+# navigator.geolocation.getCurrentPosition( function(position) {
+
+
+
+#     <script tage for findmyloc
+
+# // var x = document.getElementById("demo");
+
+# // function getLocation() {
+# //     if (navigator.geolocation) {
+# //         navigator.geolocation.getCurrentPosition(showPosition);
+# //     } else {
+# //         x.innerHTML = "Geolocation is not supported by this browser.";
+# //     }
+# // }
+
+# // function showPosition(position) {
+# //     x.innerHTML = "Latitude: " + position.coords.latitude +
+# //     "<br>Longitude: " + position.coords.longitude;
+# }
+
+
+
+ # document.getElementById("#curr-lat").value =  + position.coords.latitude +
+ #  document.getElementById("#curr-long").value = + position.coords.longitude +

@@ -1,6 +1,7 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
+from server_helpers import get_address, get_latlongs, get_curr_loc
 import requests
 import urllib
 import os
@@ -38,55 +39,6 @@ def show_searchpage():
     return render_template("search_page.html")
 
 
-# Helper function for the '/search-hike route
-# Takes the form inputs, and returns the jsonified data
-def get_address(city, radius, state):
-    """Get inputs from the search page, return json data to the calling function"""
-
-    base_url = "https://trailapi-trailapi.p.mashape.com/?"
-
-    # params values for the request object
-    payload = {"q[activities_activity_type_name_eq]": "hiking",
-               "q[city_cont]": city, "q[state_cont]": state, "q[country_cont]": "United+States",
-               "radius": radius, "limit": 10}
-
-    # Encoding payload values for adding it to the URL
-    # Using urllib to encode params to URL, replace encoded characters to the URL compatible chars
-    param_url = urllib.urlencode(payload).replace('%5D', ']').replace('%5B', '[').replace('%2B', '+')
-
-    # Concatenating base_url with final_url, to get the final_url to pass to API request.get
-    final_url = base_url + param_url
-    my_key = os.environ["X_MASHAPE_KEY"]
-    headers = {"X-Mashape-Key": my_key, "Accept": "text/plain"}
-
-    response = requests.get(final_url, headers=headers)
-    results = response.json()
-
-    return results
-
-
-# Helper function for the '/search-hike route
-# Takes the list of jsonified dict, and returns the list of latlong values
-def get_latlongs(result_list):
-    """Get the jsonified response from the app view, return list of latlongs"""
-    # Initializing list of Latlong values
-    latlong_list = []
-
-    # Dictionary of latlong value, for each latlong pair (from search results)
-    d = {}
-
-    # For loop to append each latlong pair to the list of latlong dict (d)
-    for i in range(len(result_list)):
-        d['lat'] = result_list[i]["lat"]
-        d['lng'] = result_list[i]["lon"]
-        # appending the lat, long value of dictionary to the list of latlong
-        latlong_list.append(d)
-        # The dictionary is made empty again, to avoid over-writing same
-        # dict values, all over the list.
-        d = {}
-    return latlong_list
-
-
 @app.route("/search-hike", methods=["POST"])
 def search_hike():
     """Search hike by location or zipcode via API request,
@@ -95,15 +47,17 @@ def search_hike():
 
     city = request.form["city"]
     state = request.form["state"]
-    # state = request.form["state"]
     radius = request.form["radius"]
 
     results = get_address(city, radius, state)
     result_list = results["places"]
-
     latlong_list = get_latlongs(result_list)
 
     return render_template("search_results.html", result_list=result_list, latlong_list=latlong_list, google_map_key=google_map_key)
+
+
+##################################################################
+##########################################################
 
 
 # @Note: REDUNDANT CODE:
@@ -114,6 +68,26 @@ def find_loc():
     """Go to the my location search page"""
 
     return render_template("find_my_location_search.html")
+
+
+# @Note: REDUNDANT CODE:
+# This piece of code needs to be integrated with the above /search-hike route,
+#     created separate button just for testing purpose
+@app.route("/loc-results", methods=["POST"])
+def loc_results():
+    """Go to the location results page"""
+    google_map_key = os.environ["GOOGLE_MAPS_KEY"]
+
+    radius = request.form["radius"]
+    curr_lat = request.form["curr-lat"]
+    curr_long = request.form["curr-long"]
+
+    results = get_curr_loc(curr_lat, curr_long, radius)
+    result_list = results["places"]
+    latlong_list = get_latlongs(result_list)
+
+    return render_template("location_results.html", result_list=result_list, latlong_list=latlong_list, google_map_key=google_map_key)
+
 
 
 
