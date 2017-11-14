@@ -56,7 +56,7 @@ def search_hike():
     return render_template("search_results.html", result_list=result_list, latlong_list=latlong_list, google_map_key=google_map_key)
 
 
-##################################################################
+##########################################################
 ##########################################################
 
 
@@ -86,7 +86,7 @@ def loc_results():
     result_list = results["places"]
     latlong_list = get_latlongs(result_list)
 
-    return render_template("location_results.html", result_list=result_list, latlong_list=latlong_list, google_map_key=google_map_key)
+    return render_template("search_results.html", result_list=result_list, latlong_list=latlong_list, google_map_key=google_map_key)
 
 
 
