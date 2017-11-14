@@ -5,6 +5,7 @@ from server_helpers import get_address, get_latlongs, get_curr_loc
 import requests
 import urllib
 import os
+import pdb
 
 # from model import connect_to_db, db, User, Movie, Rating
 
@@ -18,6 +19,7 @@ app.secret_key = "ABC"
 app.jinja_env.undefined = StrictUndefined
 
 
+# Home page
 @app.route("/")
 def index():
     """Homepage."""
@@ -27,7 +29,7 @@ def index():
 
 @app.route("/choose-login")
 def show_loginpage():
-    """Direct to the Login upon button click"""
+    """Direct to the Login page upon button click"""
 
     return render_template("login_form.html")
 
@@ -39,30 +41,6 @@ def show_searchpage():
     return render_template("search_page.html")
 
 
-@app.route("/search-hike", methods=["POST"])
-def search_hike():
-    """Search hike by location or zipcode via API request,
-    push results to results page"""
-    google_map_key = os.environ["GOOGLE_MAPS_KEY"]
-
-    city = request.form["city"]
-    state = request.form["state"]
-    radius = request.form["radius"]
-
-    results = get_address(city, radius, state)
-    result_list = results["places"]
-    latlong_list = get_latlongs(result_list)
-
-    return render_template("search_results.html", result_list=result_list, latlong_list=latlong_list, google_map_key=google_map_key)
-
-
-##########################################################
-##########################################################
-
-
-# @Note: REDUNDANT CODE:
-# This piece of code needs to be integrated with the above /search-hike route,
-#     created separate button just for testing purpose
 @app.route("/search-by-loc")
 def find_loc():
     """Go to the my location search page"""
@@ -70,26 +48,34 @@ def find_loc():
     return render_template("find_my_location_search.html")
 
 
-# @Note: REDUNDANT CODE:
-# This piece of code needs to be integrated with the above /search-hike route,
-#     created separate button just for testing purpose
-@app.route("/loc-results", methods=["POST"])
-def loc_results():
-    """Go to the location results page"""
+@app.route("/search-hike", methods=["POST"])
+def search_hike():
+    """Search hike by location or Latlong based upon search page,
+    send API request, push results to results page"""
     google_map_key = os.environ["GOOGLE_MAPS_KEY"]
 
-    radius = request.form["radius"]
-    curr_lat = request.form["curr-lat"]
-    curr_long = request.form["curr-long"]
+# Checking if the request is from choose-search route of find-my-loc rout
+# Note that here 'request' is the form request, NOT the API requests.
+    if "/choose-search" in request.referrer:
+        city = request.form["city"]
+        state = request.form["state"]
+        radius = request.form["radius"]
+        # Call the get_address funtion, if the User wants to search based on city
+        results = get_address(city, radius, state)
+    elif "/search-by-loc" in request.referrer:
+        radius = request.form["radius"]
+        curr_lat = request.form["curr-lat"]
+        curr_long = request.form["curr-long"]
+        # Call the get_curr_loc function, if user wants to
+        # search based on current_location
+        results = get_curr_loc(curr_lat, curr_long, radius)
 
-    results = get_curr_loc(curr_lat, curr_long, radius)
     result_list = results["places"]
     latlong_list = get_latlongs(result_list)
 
-    return render_template("search_results.html", result_list=result_list, latlong_list=latlong_list, google_map_key=google_map_key)
-
-
-
+    return render_template("search_results.html",
+                           result_list=result_list, latlong_list=latlong_list,
+                           google_map_key=google_map_key)
 
 
 ################################################################################
@@ -149,10 +135,6 @@ def loc_results():
 #     flash("Logged in")
 #     return redirect("/users/%s" % user.user_id)
 
-
-# Google Maps: API key:
-# AIzaSyAsgrGl18S5YRU8j7W_F25w9J3hFVvxtx0
-
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
@@ -162,5 +144,4 @@ if __name__ == "__main__":
 
     # Use the DebugToolbar
     DebugToolbarExtension(app)
-
     app.run(host="0.0.0.0")

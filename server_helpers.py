@@ -33,35 +33,6 @@ def get_address(city, radius, state):
     return results
 
 
-# Helper function for the '/search-hike route
-# Takes the list of jsonified dict, and returns the list of latlong values
-def get_latlongs(result_list):
-    """Get the jsonified response from the app view, return list of latlongs"""
-    # Initializing list of Latlong values
-    latlong_list = []
-
-    # Dictionary of latlong value, for each latlong pair (from search results)
-    d = {}
-
-    # For loop to append each latlong pair to the list of latlong dict (d)
-    for i in range(len(result_list)):
-        d['lat'] = result_list[i]["lat"]
-        d['lng'] = result_list[i]["lon"]
-        # appending the lat, long value of dictionary to the list of latlong
-        latlong_list.append(d)
-        # The dictionary is made empty again, to avoid over-writing same
-        # dict values, all over the list.
-        d = {}
-    return latlong_list
-
-
-    ###################################################################################
-    # @Note: REDUNDANT CODE:
-    # Need to integrate it with get_address method
-
-    # NOTE: ONLY the 'payload' param varies from the get_address method here
-    # Return value is the same as get_address method
-
 # Helper function for the /loc-results route
 # Takes the form inputs, and returns the jsonified data
 # Nee
@@ -88,3 +59,31 @@ def get_curr_loc(curr_lat, curr_long, radius):
     results = response.json()
 
     return results
+
+
+# Helper function for the '/search-hike route
+# Takes the list of jsonified dict, and returns the list of latlong values
+def get_latlongs(result_list):
+    """Get the jsonified response from the app view, return list of latlongs"""
+    # Initializing list of Latlong values
+    latlong_list = []
+
+    # Dictionary of latlong value, for each latlong pair (from search results)
+    d = {}
+
+    # For loop to append each latlong pair to the list of latlong dict (d)
+    for i in range(len(result_list)):
+        d['lat'] = result_list[i]["lat"]
+        d['lng'] = result_list[i]["lon"]
+        # appending the lat, long value of dictionary to the list of latlong
+        latlong_list.append(d)
+        # The dictionary is made empty again, to avoid over-writing same
+        # dict values, all over the list.
+        d = {}
+    return latlong_list
+    ###################################################################################
+    # @Note: REDUNDANT CODE:
+    # Need to integrate it with get_address method
+
+    # NOTE: ONLY the 'payload' param varies from the get_address method here
+    # Return value is the same as get_address method
