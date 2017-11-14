@@ -1,0 +1,56 @@
+<!-- # @Note: REDUNDANT CODE:
+# This piece of code needs to be integrated with the above /search-hike route,
+#     created separate button just for testing purpose -->
+<!DOCTYPE html>
+<html>
+<body>
+<p>Click the button below to search hikes by your current location!</p>
+
+<!-- Button for getting the current Lat-long position.
+Upon click, the button prints current latlong on text fields.
+Note that this button is outside of the 'form' tags-->
+
+<button id="find-loc" onclick="getLocation()">Click Me!</button><br>
+<p id="demo"></p>
+
+<form action="/loc-results" method="POST" id="loc-radius">
+
+
+<input type="hidden" name="curr-lat" id="curr-lat"><br>
+<input type="hidden" name="curr-long" id="curr-long"><br>
+
+
+Wait a minute! Select the radius range(in miles) and hit 'Go'!: 
+                <select name="radius" required>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+
+
+<input type="submit" id="go" name="search" value="Go" />
+
+</form>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script>
+
+function getLocation(){
+   navigator.geolocation.getCurrentPosition(showPosition);
+}
+
+function showRadiusDropdown(){
+        $("#loc-radius").show();
+}
+
+function showPosition(position) { 
+    document.getElementById("curr-lat").value = position.coords.latitude;
+    document.getElementById("curr-long").value = position.coords.longitude;
+    showRadiusDropdown();
+}
+
+$("#loc-radius").hide();
+
+</script>
+</body>
+</html>
