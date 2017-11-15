@@ -7,4 +7,6 @@ Jinja2==2.9.6
 MarkupSafe==1.0
 Werkzeug==0.12.2
 requests
-json
+Flask-SQLAlchemy==2.2
+psycopg2==2.7.1
+SQLAlchemy==1.1.7

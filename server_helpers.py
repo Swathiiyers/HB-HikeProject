@@ -6,17 +6,12 @@ import urllib
 import os
 
 
-# Helper function for the '/search-hike route
-# Takes the form inputs, and returns the jsonified data
-def get_address(city, radius, state):
-    """Get inputs from the search page, return json data to the calling function"""
+# Helper function that makes API requests based on the payload parameter
+def get_response(payload):
+    """Takes payload as parameter and returns the jsonified response from
+    the TrailAPI"""
 
     base_url = "https://trailapi-trailapi.p.mashape.com/?"
-
-    # params values for the request object
-    payload = {"q[activities_activity_type_name_eq]": "hiking",
-               "q[city_cont]": city, "q[state_cont]": state, "q[country_cont]": "United+States",
-               "radius": radius, "limit": 10}
 
     # Encoding payload values for adding it to the URL
     # Using urllib to encode params to URL, replace encoded characters to the URL compatible chars
@@ -27,37 +22,9 @@ def get_address(city, radius, state):
     my_key = os.environ["X_MASHAPE_KEY"]
     headers = {"X-Mashape-Key": my_key, "Accept": "text/plain"}
 
+    # Making the API call, by passing the request URL and API keys (in headers)
     response = requests.get(final_url, headers=headers)
     results = response.json()
-
-    return results
-
-
-# Helper function for the /loc-results route
-# Takes the form inputs, and returns the jsonified data
-# Nee
-def get_curr_loc(curr_lat, curr_long, radius):
-    """Get inputs from the search page, return json data to the calling function"""
-
-    base_url = "https://trailapi-trailapi.p.mashape.com/?"
-
-    # params values for the request object
-    payload = {"q[activities_activity_type_name_eq]": "hiking",
-               "lat": curr_lat, "lon": curr_long, "limit": 20,
-               "radius": radius}
-
-    # Encoding payload values for adding it to the URL
-    # Using urllib to encode params to URL, replace encoded characters to the URL compatible chars
-    param_url = urllib.urlencode(payload).replace('%5D', ']').replace('%5B', '[').replace('%2B', '+')
-
-    # Concatenating base_url with final_url, to get the final_url to pass to API request.get
-    final_url = base_url + param_url
-    my_key = os.environ["X_MASHAPE_KEY"]
-    headers = {"X-Mashape-Key": my_key, "Accept": "text/plain"}
-
-    response = requests.get(final_url, headers=headers)
-    results = response.json()
-
     return results
 
 
@@ -81,9 +48,3 @@ def get_latlongs(result_list):
         # dict values, all over the list.
         d = {}
     return latlong_list
-    ###################################################################################
-    # @Note: REDUNDANT CODE:
-    # Need to integrate it with get_address method
-
-    # NOTE: ONLY the 'payload' param varies from the get_address method here
-    # Return value is the same as get_address method

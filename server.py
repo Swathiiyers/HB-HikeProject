@@ -1,7 +1,7 @@
 from jinja2 import StrictUndefined
-from flask import Flask, render_template, request, flash, redirect, session
+from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
-from server_helpers import get_address, get_latlongs, get_curr_loc
+from server_helpers import get_latlongs, get_response
 import requests
 import urllib
 import os
@@ -60,17 +60,28 @@ def search_hike():
         city = request.form["city"]
         state = request.form["state"]
         radius = request.form["radius"]
-        # Call the get_address funtion, if the User wants to search based on city
-        results = get_address(city, radius, state)
+
+        # The payload params includes the city, state and radius values
+        payload = {"q[activities_activity_type_name_eq]": "hiking",
+                   "q[city_cont]": city, "q[state_cont]": state,
+                   "q[country_cont]": "United+States",
+                   "radius": radius, "limit": 10}
+
     elif "/search-by-loc" in request.referrer:
         radius = request.form["radius"]
         curr_lat = request.form["curr-lat"]
         curr_long = request.form["curr-long"]
-        # Call the get_curr_loc function, if user wants to
-        # search based on current_location
-        results = get_curr_loc(curr_lat, curr_long, radius)
 
+        # The payload params includes the latlong values
+        payload = {"q[activities_activity_type_name_eq]": "hiking",
+                   "lat": curr_lat, "lon": curr_long, "limit": 20,
+                   "radius": radius}
+
+    # Make API request, based on the payload values
+    # Pass the payload argument to get_response function
+    results = get_response(payload)
     result_list = results["places"]
+    # Get the latlong values of all the search results
     latlong_list = get_latlongs(result_list)
 
     return render_template("search_results.html",
