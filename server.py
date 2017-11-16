@@ -26,6 +26,21 @@ def index():
     return render_template("homepage.html")
 
 
+@app.route("/register", methods=["GET"])
+def show_registrationpage():
+    """Direct to the registration page upon button click"""
+
+    return render_template("registration_form.html")
+
+
+@app.route("/register", methods=["POST"])
+def register_user():
+    """Checks the user information, and adds to User database
+    if not already existing"""
+# @TODO: Code for this part to be done later.
+    pass
+
+
 @app.route("/choose-login", methods=["GET"])
 def show_loginpage():
     """Direct to the Login page upon button click"""

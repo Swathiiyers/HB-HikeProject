@@ -107,3 +107,24 @@ print latlong_list
 
  # document.getElementById("#curr-lat").value =  + position.coords.latitude +
  #  document.getElementById("#curr-long").value = + position.coords.longitude +
+
+
+ # #######################################################################
+# login_form (previous)
+#  <!-- {% extends 'base.html' %}
+# {% block content %}
+
+#     <h1>Login</h1>
+#     <form action="/choose-login" method="POST">
+#         <div>
+#                 Enter your name:        <input type="text" name="user_name"><br>
+#                 Enter your login email: <input type="email" name="email" required><br>
+#                 Enter the password:     <input type="password" name="password" required><br>
+#                 <input type="submit" value="Log In">
+#         </div>
+
+#     </form>
+# {% endblock %}
+
+
+#  -->
