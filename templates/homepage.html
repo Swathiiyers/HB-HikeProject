@@ -3,24 +3,11 @@
 
    {% block content %}
     <div id='options'>
-        <h1>Where do you want to go first</h1><br>
+        <h1>Welcome to the hike search app!</h1><br>
 
         <img id='welcomeimg' src = 'https://az616578.vo.msecnd.net/files/2016/03/30/635948972872567046-1775666517_hikers3.jpg' align='center'
         height=300px width= 300px><br><br>
 
-        <form action="/choose-login" method="GET">
-            <input type="submit" id="login" name="login" value="Login">
-        </form>
-        <form action="/choose-search" method="GET">
-            <input type="submit" id="search" name="search" value="search">
-        </form>
-
-<!-- @Note: REDUNDANT CODE:
-This piece of code needs to be integrated with the above /choose-search route, 
-    created separate button just for testing purpose -->
-        <form action="/search-by-loc" method="GET">
-            <input type="submit" id="loc" name="loc" value="Find my location">
-        </form>
     </div>
 
    {% endblock %}

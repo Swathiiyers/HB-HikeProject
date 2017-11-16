@@ -118,7 +118,6 @@ class HikeTrail(db.Model):
     trail_id = db.Column(db.Integer, primary_key=True)
     trail_name = db.Column(db.String(200), nullable=False)
     trail_description = db.Column(db.Text, nullable=True)
-    rating_id = db.Column(db.Integer, db.ForeignKey('ratings.rating_id'))
     trail_length = db.Column(db.Integer)
 
     def __repr__(self):

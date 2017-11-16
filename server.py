@@ -6,17 +6,16 @@ import requests
 import urllib
 import os
 import pdb
+from model import connect_to_db, db, User, Rating, Comment, HikeTrail, Search
 
-# from model import connect_to_db, db, User, Movie, Rating
 
 app = Flask(__name__)
 
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "ABC"
 
-# Normally, if you use an undefined variable in Jinja2, it fails silently.
-# This is horrible. Fix this so that, instead, it raises an error.
 app.jinja_env.undefined = StrictUndefined
+app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 
 
 # Home page
@@ -27,11 +26,33 @@ def index():
     return render_template("homepage.html")
 
 
-@app.route("/choose-login")
+@app.route("/choose-login", methods=["GET"])
 def show_loginpage():
     """Direct to the Login page upon button click"""
 
     return render_template("login_form.html")
+
+
+@app.route("/choose-login", methods=["POST"])
+def login_process():
+    """Process login."""
+
+    # Get form variables
+    user_name = request.form["user_name"]
+    email = request.form["email"]
+    password = request.form["password"]
+
+    check_user = User.query.filter_by(user_name=user_name, email=email, password=password).all()
+
+# If the password is incorrect (checking if check_user is None)
+    if check_user == []:
+        return redirect('/choose-login')
+    else:
+        #If user exists, add user_id to the sesssion.
+        flash("You were successfully logged in")
+        session["user_id"] = check_user[0].user_id
+        user_id = session["user_id"]
+        return redirect('/choose-search')
 
 
 @app.route("/choose-search")
@@ -151,7 +172,7 @@ if __name__ == "__main__":
     # that we invoke the DebugToolbarExtension
     app.debug = True
 
-    # connect_to_db(app)
+    connect_to_db(app)
 
     # Use the DebugToolbar
     DebugToolbarExtension(app)
