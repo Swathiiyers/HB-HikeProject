@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+
     <title>{% block title %}Title goes here{% endblock %}</title>
 <!--   <link rel="stylesheet" type="text/css" href="../static/styles.css"> -->
 <!--     <link rel="stylesheet" href="../static/styles.css"> -->
@@ -40,16 +41,32 @@
             </ul>
         </ul>
 
-        <ul class="nav navbar-nav navbar-right">
+        {% if "user_name" in session %}
+        <ul class="nav navbar-nav navbar-right" id="hide">
+        <li><a href="/logout">Logout</a></li>
+        {% else %}
+        <ul class="nav navbar-nav navbar-right" id="hide">
         <li><a href="/choose-login">Login</a></li>
+        {% endif %}
         
         </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
     {% block content %} Content of the body goes here{% endblock %}
 
+<!-- importing script for google api -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>

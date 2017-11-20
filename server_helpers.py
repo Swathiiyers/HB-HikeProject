@@ -1,6 +1,7 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
+from model import connect_to_db, db, User, Rating, Comment, HikeTrail, Search
 import requests
 import urllib
 import os
@@ -26,6 +27,25 @@ def get_response(payload):
     response = requests.get(final_url, headers=headers)
     results = response.json()
     return results
+
+
+def add_to_HikeTrails_db(result_list):
+
+    for i in range(len(result_list)):
+        trail_id = result_list[i]["unique_id"]
+        trail_name = result_list[i]["name"]
+        trail_description = result_list[i]["activities"][0]["description"]
+        trail_length = result_list[i]["activities"][0]["length"]
+
+        check_trail = HikeTrail.query.filter_by(trail_id=trail_id).count()
+
+        if check_trail == 0:
+            new_trail = HikeTrail(trail_id=trail_id, trail_name=trail_name,
+                                  trail_description=trail_description,
+                                   trail_length=trail_length)
+            # Adding new user to the database and commit
+            db.session.add(new_trail)
+            db.session.commit()
 
 
 # Helper function for the '/search-hike route

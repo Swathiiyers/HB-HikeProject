@@ -1,12 +1,13 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
-from server_helpers import get_latlongs, get_response
+from server_helpers import get_latlongs, get_response, add_to_HikeTrails_db
 import requests
 import urllib
 import os
 import pdb
 from model import connect_to_db, db, User, Rating, Comment, HikeTrail, Search
+from sqlalchemy import and_
 
 
 app = Flask(__name__)
@@ -27,18 +28,45 @@ def index():
 
 
 @app.route("/register", methods=["GET"])
-def show_registrationpage():
+def user_registration():
     """Direct to the registration page upon button click"""
 
     return render_template("registration_form.html")
+
+
+@app.route('/user-profile')
+def show_userprofile():
+    """Show User profile on register or login"""
+
+    return render_template("user_profile.html")
 
 
 @app.route("/register", methods=["POST"])
 def register_user():
     """Checks the user information, and adds to User database
     if not already existing"""
-# @TODO: Code for this part to be done later.
-    pass
+
+    user_name = request.form.get("user_name")
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+# At the registration page, check if the user_name, email and password entered,
+# already exists in the database (by querying the database)
+    check_user = User.query.filter_by(email=email).count()
+    # import pdb; pdb.set_trace()
+
+    if check_user == 0:
+        new_user = User(user_name=user_name, email=email, password=password)
+        # Adding new user to the database and commit
+        db.session.add(new_user)
+        db.session.commit()
+
+        session["user_name"] = new_user.user_name
+        return redirect("/user-profile")
+
+    else:
+        flash("You have an account. Please login")
+        return redirect('/choose-login')
 
 
 @app.route("/choose-login", methods=["GET"])
@@ -54,20 +82,29 @@ def login_process():
 
     # Get form variables
     user_name = request.form["user_name"]
-    email = request.form["email"]
     password = request.form["password"]
 
-    check_user = User.query.filter_by(user_name=user_name, email=email, password=password).all()
+    check_user = User.query.filter_by(user_name=user_name, password=password).all()
 
-# If the password is incorrect (checking if check_user is None)
+# If the password is incorrect (checking if check_user is None), go to login page again
+# Checking if the above query returns an empty list of objects
     if check_user == []:
+        flash("Incorrect Username or password. Please try again!")
         return redirect('/choose-login')
     else:
-        #If user exists, add user_id to the sesssion.
+            #If user exists, add user_id to the sesssion.
         flash("You were successfully logged in")
-        session["user_id"] = check_user[0].user_id
-        user_id = session["user_id"]
-        return redirect('/choose-search')
+        # The user_id value (from the returned list) is added to the session dictionary
+        session["user_name"] = check_user[0].user_name
+        # user_name = session["user_name"]
+        return redirect("/user-profile")
+
+
+@app.route('/logout')
+def logout_user():
+
+    del session["user_name"]
+    return redirect("/")
 
 
 @app.route("/choose-search")
@@ -117,6 +154,9 @@ def search_hike():
     # Pass the payload argument to get_response function
     results = get_response(payload)
     result_list = results["places"]
+
+    # Add results to the HikeTrails database
+    add_to_HikeTrails_db(result_list)
     # Get the latlong values of all the search results
     latlong_list = get_latlongs(result_list)
 
@@ -126,37 +166,7 @@ def search_hike():
 
 
 ################################################################################
-# @app.route("/register", methods=["GET"])
-# def register_form():
-#     """Show form for user signup."""
 
-#     return render_template("register_form.html")
-
-#
-# @app.route("/register", methods=["POST"])
-# def register_process():
-#     """Process registration."""
-
-#     # Get form variables
-#     email = request.form["email"]
-#     password = request.form["password"]
-#     age = int(request.form["age"])
-#     zipcode = request.form["zipcode"]
-
-#     new_user = User(email=email, password=password, age=age, zipcode=zipcode)
-
-#     db.session.add(new_user)
-#     db.session.commit()
-
-#     flash("User %s added." % email)
-#     return redirect("/")
-
-
-# @app.route("/login", methods=["GET"])
-# def login_form():
-#     """Show login form."""
-
-#     return render_template("login_form.html")
 
 
 # @app.route("/login", methods=["POST"])

@@ -1,18 +1,18 @@
-// let searchButton = document.querySelector('#search-button');
+// use strict;
 
-function showAlertMessage(evt) {
-// prevent buttonClick from navigating to the route.
+// function getLocation() {
+//     navigator.geolocation.getCurrentPosition(showPosition);
+// }
 
-    "use strict";
-    evt.preventDefault();
-    console.log("I come here");
-    alert('Submitted successfully');
-}
+// function showRadiusDropdown() {
+//     $("#loc-radius").show();
+// }
 
-// searchButton.addEventListener("click", showAlertMessage);
+// function showPosition(position) { 
+//     document.getElementById("curr-lat").value = position.coords.latitude;
+//     document.getElementById("curr-long").value = position.coords.longitude;
+//     showRadiusDropdown();
+// }
 
-
-var searchButton = document.getElementById("search-form");
-
-searchButton.addEventListener("click",showAlertMessage);
+// $("#loc-radius").hide();
 

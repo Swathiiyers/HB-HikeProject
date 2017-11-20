@@ -2,7 +2,7 @@
 # This piece of code needs to be integrated with the above /search-hike route,
 #     created separate button just for testing purpose -->
 {% extends 'base.html' %}
-{% block title %}Welcome to the World of Hikes{% endblock %}
+{% block title %}Current location{% endblock %}
 
 {% block content %}
 <p>Click the button below to search hikes by your current location!</p>
@@ -12,7 +12,7 @@ Upon click, the button prints current latlong on text fields.
 Note that this button is outside of the 'form' tags-->
 
 <button id="find-loc" onclick="getLocation()">Click Me!</button><br>
-<p id="demo"></p>
+
 
 <form action="/search-hike" method="POST" id="loc-radius">
 
@@ -21,7 +21,8 @@ Note that this button is outside of the 'form' tags-->
 <input type="hidden" name="curr-long" id="curr-long"><br>
 
 
-Wait a minute! Select the radius range(in miles) and hit 'Go'!: 
+Just one more step to go! <br>
+Please select the radius range(in miles) and hit 'Go'!: 
                 <select name="radius" required>
                     <option value="5">5</option>
                     <option value="10">10</option>
@@ -36,26 +37,27 @@ Wait a minute! Select the radius range(in miles) and hit 'Go'!:
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script>
 
-function getLocation(){
-   navigator.geolocation.getCurrentPosition(showPosition);
-}
+  function getLocation(){
+     navigator.geolocation.getCurrentPosition(showPosition);
+  }
 
-function showRadiusDropdown(){
-        $("#loc-radius").show();
-}
+  function showRadiusDropdown(){
+          $("#loc-radius").show();
+  }
 
-function showPosition(position) { 
-    document.getElementById("curr-lat").value = position.coords.latitude;
-    document.getElementById("curr-long").value = position.coords.longitude;
-    showRadiusDropdown();
-}
+  function showPosition(position) { 
+      document.getElementById("curr-lat").value = position.coords.latitude;
+      document.getElementById("curr-long").value = position.coords.longitude;
+      showRadiusDropdown();
+  }
 
 $("#loc-radius").hide();
 
 
+
 </script>
 
-
+<!-- TODO: Thinking of adding current location on map -->
 <!-- <div id="map">           
       <script>
         var map;

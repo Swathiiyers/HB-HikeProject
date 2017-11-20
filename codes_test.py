@@ -30,16 +30,19 @@ d = {}
 # For loop to append each latlong pair to the list of latlong dict (d)
 
 for i in range(len(result_list)):
-    # print result_list[i]["lat"]
-    # print result_list[i]["lon"]
+    print result_list[i]["name"]
+    print result_list[i]["unique_id"]
+    print result_list[i]["activities"][0]["description"]
+    print result_list[i]["activities"][0]["url"]
+    print result_list[i]["activities"][0]["length"]
+    print "\n"
     # print "\n"
-    d['lat'] = result_list[i]["lat"]
-    d['lng'] = result_list[i]["lon"]
-    latlong_list.append(d)
-    d = {}
+
+
+
     # appending the lat, long value of dictionary to the list of latlong
 
-print latlong_list
+
 
 
 #Access the URL, rating, description
@@ -128,3 +131,39 @@ print latlong_list
 
 
 #  -->
+
+
+# User profile code:
+# {% extends 'base.html' %}
+# {% block title %}User Profile{% endblock %}
+    
+#     {% block content %}
+    
+#     <p>Welcome, {{ session["user_name"] }}</p>
+
+#     <nav class="navbar navbar-default sidebar" role="navigation">
+#         <div class="container-fluid">
+#         <div class="navbar-header">
+#           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+#             <span class="sr-only">Toggle navigation</span>
+#             <span class="icon-bar"></span>
+#             <span class="icon-bar"></span>
+#             <span class="icon-bar"></span>
+#           </button>      
+#         </div>
+#         <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+#           <ul class="nav navbar-nav">
+#             <li class="active"><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+#                 <li><a href="#">Past searches</a></li>
+#                 <li><a href="#">Ratings</a></li>
+#                 <li class="divider"></li>
+#               </ul>
+#             </li>          
+#           </ul>
+#         </div>
+#       </div>
+#     </nav>
+
+#     </div>
+
+# new_trail = HikeTrail(trail_id = 293, trail_name = "Joseph D. Grant County Park", trail_description = "Joseph D. Grant County Park features 6 miles of hiking trails near San Jose, CA.", trail_length = 6)

@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+
+{% block title %}Login Page{% endblock %}
+
 {% block content %}
     <div class="well spaced" style="width:40%;">
     <h1>Login</h1>
@@ -8,15 +11,8 @@
 
     <div class="form-group">
         <label>
-            Enter your name:
-            <input type="text" name="user_name" class="form-control">
-        </label>
-    </div>
-
-    <div class="form-group">
-        <label>
-            Enter your login email:
-            <input type="email" name="email" class="form-control" required>
+            Enter your user name:
+            <input type="text" name="user_name" class="form-control" required>
         </label>
     </div>
 
