@@ -52,7 +52,7 @@ def register_user():
 
 # At the registration page, check if the user_name, email and password entered,
 # already exists in the database (by querying the database)
-    check_user = User.query.filter_by(email=email).count()
+    check_user = User.query.filter_by(user_name=user_name).count()
     # import pdb; pdb.set_trace()
 
     if check_user == 0:

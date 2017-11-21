@@ -45,7 +45,7 @@ def add_to_HikeTrails_db(result_list):
                                    trail_length=trail_length)
             # Adding new user to the database and commit
             db.session.add(new_trail)
-            db.session.commit()
+    db.session.commit()
 
 
 # Helper function for the '/search-hike route
