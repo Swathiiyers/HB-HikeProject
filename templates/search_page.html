@@ -4,7 +4,12 @@
 
    {% block content %}
 
-        <h1>Search your favorite hike!</h1><br>
+
+        {% if "user_name" in session %}
+        <h2> Hey, {{ session["user_name"] }}</h2>
+        {% endif %}
+
+        <h2>Search your favorite hike!</h1><br>
 
 
 <!-- Adding maps below on the results page. 

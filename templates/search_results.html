@@ -3,6 +3,10 @@
 
    {% block content %}
 
+    {% if "user_name" in session %}
+    <h2> Hey, {{ session["user_name"] }}</h2>
+    {% endif %}
+
     <div id="map">           
         <script>
           function initMap() {
@@ -46,7 +50,12 @@
         {% endfor %}
     {% endif %}
 
-    
+    {% if "user_name" in session %}
+    <form action="/save-search">
+    <div align="center"><input type="submit" id="save" name="save-search" value="Save searches" align="center" />
+    </div>
+    </form>
+    {% endif %}   
 
 
 

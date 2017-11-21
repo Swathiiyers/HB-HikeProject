@@ -5,6 +5,11 @@
 {% block title %}Current location{% endblock %}
 
 {% block content %}
+
+{% if "user_name" in session %}
+<h2> Hey, {{ session["user_name"] }}</h2>
+{% endif %}
+
 <p>Click the button below to search hikes by your current location!</p>
 
 <!-- Button for getting the current Lat-long position.
