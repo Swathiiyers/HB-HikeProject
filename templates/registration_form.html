@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Registration Page{% endblock %}
+
+{% block content %}
+
+{% if "user_name" in session %}
+<h2> Hey, {{ session["user_name"] }}</h2>
+<p> You're already registered. You are not required to register again<br>
+    Enjoy your searches!</p>
+{% endif %}
+
+
+<div class="well spaced" style="width:40%;">
+<h1>Register</h1>
+
+<form action="/register" method="POST">
+
+
+    <div class="form-group">
+        <label>
+            Enter your User name:
+            <input type="text" name="user_name" class="form-control">
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>
+            Enter Email:
+            <input type="email" name="email" class="form-control">
+        </label>
+    </div>
+    <div class="form-group">
+        <label>
+            Enter Password:
+            <input type="password" name="password" class="form-control">
+        </label>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Register" class="btn btn-danger">
+    </div>
+
+</form>
+</div>
+{% endblock %}
