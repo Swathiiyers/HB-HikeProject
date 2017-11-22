@@ -68,3 +68,25 @@ def get_latlongs(result_list):
         # dict values, all over the list.
         d = {}
     return latlong_list
+
+
+# Function to check User's saved searches
+def search_past_hikes(user_id):
+    """Take the user_id from server, query database and return all the searches
+    that user has saved"""
+
+    pass
+
+
+def search_user_ratings(user_id):
+    """Take the user_id from server, query database and return the list of
+    hikes the user has rated, along with the score"""
+
+    pass
+
+
+def search_user_comments(user_id):
+    """Take the user_id from server, query database and return the list of
+    hikes the user has commented"""
+
+    pass

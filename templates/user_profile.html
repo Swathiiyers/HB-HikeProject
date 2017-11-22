@@ -1,11 +1,8 @@
  {% extends 'base.html' %}
- {% block title %}User Profile{% endblock %}
+ {% block title %} {{ session["user_name"] }}]s Profile{% endblock %}
     
      {% block content %}
-
-    <p>Welcome, {{ session["user_name"] }}</p>
-    
-
+    <p>Welcome, {{ session["user_name"] }}</p> 
     <nav class="navbar navbar-default sidebar" role="navigation">
          <div class="container-fluid">
          <div class="navbar-header">
@@ -19,9 +16,9 @@
          <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
            <ul class="nav navbar-nav">
              <li class="active"><a href="">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-                 <li><a href="">Past searches</a></li>
-                 <li><a href="">Ratings</a></li>
-                 <li><a href="">Comments</a></li>
+                 <li id="user-search"><a href="">Past searches</a></li>
+                 <li id="user-reviews"><a href="">Reviews</a></li>
+<!--                  <li><a href="">Comments</a></li> -->
                  <li class="divider"></li>
                </ul>
              </li>          
@@ -29,8 +26,16 @@
          </div>
        </div>
     </nav>
+    <div>
 
-     </div>
+    <div class="profile-info">
+      <p> Few words about {{ session["user_name"] }} </p>
+    </div>
+
+    <div class="search-info">
+        <div id='past-searches'>Display user's past searches </div>
+        <div id='reviews'>Display user's ratings and comments </div>
+    </div>
 
 
     {% endblock %}

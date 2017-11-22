@@ -1,7 +1,7 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
-from server_helpers import get_latlongs, get_response, add_to_HikeTrails_db
+from server_helpers import get_latlongs, get_response, add_to_HikeTrails_db, search_past_hikes, search_user_ratings, search_user_comments
 import requests
 import urllib
 import os
@@ -35,11 +35,20 @@ def user_registration():
     return render_template("registration_form.html")
 
 
-@app.route('/user-profile')
-def show_userprofile():
+@app.route('/user-profile/<user_name>')
+def show_userprofile(user_name):
     """Show User profile on register or login"""
 
-    return render_template("user_profile.html")
+    # @TODO: Add if statement to check user's logged in
+
+    session_user = User.query.filter_by(user_name=user_name).first()
+    user_id = session_user.user_id
+
+    user_searches = search_past_hikes(user_id)
+    user_ratings = search_user_ratings(user_id)
+    user_comments = search_user_comments(user_id)
+
+    return render_template("user_profile.html", user_name=user_name)
 
 
 @app.route("/register", methods=["POST"])
@@ -97,13 +106,12 @@ def login_process():
         flash("Incorrect password. Please try again!")
         return redirect('/choose-login')
 
-
     #If user exists, add user_id to the sesssion.
     flash("You were successfully logged in")
     # The user_id value (from the returned list) is added to the session dictionary
     session["user_name"] = check_user.user_name
     # user_name = session["user_name"]
-    return redirect("/user-profile")
+    return redirect("/user-profile/%s" % user_name)
 
 
 @app.route('/logout')
@@ -182,10 +190,6 @@ def search_hike():
                            curr_lat=curr_lat, curr_long=curr_long)
 
 
-# Adding a display route function, to display URL depending upon the search type
-# @app.route("/display-results/<search_type>"):
-# def display_results()
-
 @app.route("/save-search", methods=['POST'])
 def save_searches():
     """Saves search criteria by the user"""
@@ -201,13 +205,6 @@ def save_searches():
     curr_lat = float(request.form["curr-lat"])
     curr_long = float(request.form["curr-long"])
 
-    # Checking if the request is from choose-search route of find-my-loc rout
-    # Note that here 'request' is the form request, NOT the API requests.
-    # if search_type == "search-by-city":
-    #     city = request.form["city"]
-    #     state = request.form["state"]
-    #     radius = request.form["radius"]
-
     search_query = Search.query.filter_by(user_id=user_id, city=city, state=state,
                                           lat_value=curr_lat,
                                           long_value=curr_long,
@@ -221,38 +218,7 @@ def save_searches():
         db.session.commit()
         flash("Search added successfully")
 
-    # elif search_type == "search-by-location":
-    #     radius = request.form["radius"]
-    #     curr_lat = request.form["curr-lat"]
-    #     curr_long = request.form["curr-long"]
-
     return redirect("/")
-################################################################################
-
-
-
-# @app.route("/login", methods=["POST"])
-# def login_process():
-#     """Process login."""
-
-#     # Get form variables
-#     email = request.form["email"]
-#     password = request.form["password"]
-
-#     user = User.query.filter_by(email=email).first()
-
-#     if not user:
-#         flash("No such user")
-#         return redirect("/login")
-
-#     if user.password != password:
-#         flash("Incorrect password")
-#         return redirect("/login")
-
-#     session["user_id"] = user.user_id
-
-#     flash("Logged in")
-#     return redirect("/users/%s" % user.user_id)
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point

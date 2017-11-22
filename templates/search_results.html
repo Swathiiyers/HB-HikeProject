@@ -42,7 +42,7 @@
             <li>Trail: {{ (result["name"]) }}</li>
             <li>Hiking Trail ID: {{ (result["unique_id"]) }}</li>
             <li>Description: {{ result["activities"][0]["description"] }}</li>
-            <li>url: {{ result['activities'][0]['url'] }} </li>
+            <li><a href="{{ result['activities'][0]['url'] }}">{{ result['activities'][0]['url'] }}</a> </li>
             <li>Length: {{ result["activities"][0]["length"] }}</li>
 
 

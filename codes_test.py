@@ -167,3 +167,6 @@ for i in range(len(result_list)):
 #     </div>
 
 # new_comment = Comment(user_id=1, trail_id=293, comment_description="Enjoyed the hike. Spectacular views! Recommend to all nature lovers")
+
+
+

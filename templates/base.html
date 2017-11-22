@@ -36,19 +36,24 @@
         
         </ul>
 
+        {% if "user_name" not in session %}
         <ul class="nav navbar-nav navbar-right">
         <li><a href="/register">Register</a></li>
             </ul>
         </ul>
-
+        {% endif %}
+        
         {% if "user_name" in session %}
         <ul class="nav navbar-nav navbar-right" id="hide">
         <li><a href="/logout">Logout</a></li>
+
+        <ul class="nav navbar-nav navbar-right" id="hide">
+        <li><a href="/user-profile/{{session['user_name']}}">My profile</a></li>
         {% else %}
         <ul class="nav navbar-nav navbar-right" id="hide">
         <li><a href="/choose-login">Login</a></li>
         {% endif %}
-        
+       
         </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
