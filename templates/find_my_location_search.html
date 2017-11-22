@@ -10,6 +10,7 @@
 <h2> Hey, {{ session["user_name"] }}</h2>
 {% endif %}
 
+<div id = "location" align = "center">
 <p>Click the button below to search hikes by your current location!</p>
 
 <!-- Button for getting the current Lat-long position.
@@ -39,28 +40,27 @@ Please select the radius range(in miles) and hit 'Go'!:
 <input type="submit" id="go" name="search" value="Go" />
 
 </form>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+</div>
 <script>
 
-  function getLocation(){
-     navigator.geolocation.getCurrentPosition(showPosition);
-  }
+function getLocation(){
+ navigator.geolocation.getCurrentPosition(showPosition);
+}
 
-  function showRadiusDropdown(){
-          $("#loc-radius").show();
-  }
+function showRadiusDropdown(){
+      $("#loc-radius").show();
+}
 
-  function showPosition(position) { 
-      document.getElementById("curr-lat").value = position.coords.latitude;
-      document.getElementById("curr-long").value = position.coords.longitude;
-      showRadiusDropdown();
-  }
+function showPosition(position) { 
+  document.getElementById("curr-lat").value = position.coords.latitude;
+  document.getElementById("curr-long").value = position.coords.longitude;
+  showRadiusDropdown();
+}
 
-$("#loc-radius").hide();
+$("#loc-radius").hide();</script>
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 
-
-</script>
 
 <!-- TODO: Thinking of adding current location on map -->
 <!-- <div id="map">           

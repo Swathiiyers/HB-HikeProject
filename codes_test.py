@@ -149,7 +149,7 @@ for i in range(len(result_list)):
 #             <span class="icon-bar"></span>
 #             <span class="icon-bar"></span>
 #             <span class="icon-bar"></span>
-#           </button>      
+#           </button>
 #         </div>
 #         <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
 #           <ul class="nav navbar-nav">
@@ -158,7 +158,7 @@ for i in range(len(result_list)):
 #                 <li><a href="#">Ratings</a></li>
 #                 <li class="divider"></li>
 #               </ul>
-#             </li>          
+#             </li>
 #           </ul>
 #         </div>
 #       </div>
@@ -166,4 +166,4 @@ for i in range(len(result_list)):
 
 #     </div>
 
-# new_trail = HikeTrail(trail_id = 293, trail_name = "Joseph D. Grant County Park", trail_description = "Joseph D. Grant County Park features 6 miles of hiking trails near San Jose, CA.", trail_length = 6)
+# new_comment = Comment(user_id=1, trail_id=293, comment_description="Enjoyed the hike. Spectacular views! Recommend to all nature lovers")

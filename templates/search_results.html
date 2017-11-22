@@ -7,7 +7,7 @@
     <h2> Hey, {{ session["user_name"] }}</h2>
     {% endif %}
 
-    <div id="map">           
+    <div id="map" align="center">           
         <script>
           function initMap() {
           // Taking the latlong dict values from python function
@@ -31,7 +31,7 @@
         async defer></script>  
     </div>
 
-    
+
     {% if result_list | length == 0 %}
         <p> Sorry, there are no hikes listed :(</p>
 
@@ -42,13 +42,15 @@
             <li>Trail: {{ (result["name"]) }}</li>
             <li>Hiking Trail ID: {{ (result["unique_id"]) }}</li>
             <li>Description: {{ result["activities"][0]["description"] }}</li>
-            <li>url: {{ result["activities"][0]["url"] }}></li>
+            <li>url: {{ result['activities'][0]['url'] }} </li>
             <li>Length: {{ result["activities"][0]["length"] }}</li>
 
 
         </ul>
         {% endfor %}
     {% endif %}
+
+
 
     {% if "user_name" in session %}
     <div align="center">

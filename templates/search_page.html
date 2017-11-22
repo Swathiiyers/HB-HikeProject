@@ -15,9 +15,9 @@
 <!-- Adding maps below on the results page. 
 @TODO: Note that this is just a dummy map, and I need to pass live variables here
 to display markers according to the search_results -->
-
+    <div id="boxes" align = "center">
         <form action="/search-hike" id="search-form" method="POST">
-            <div id="boxes">
+
                 Enter the City: <input type="text" name="city"><br><br>
                 Enter the State: <input type="text" name="state"><br><br>
                 Select the radius range: 
@@ -30,5 +30,6 @@ to display markers according to the search_results -->
 
                 <input type="submit" id="go" name="search" value="Go" />
         </form>
+    </div>
 <!--         // <script src="../static/map_search.js"></script> -->
    {% endblock %}
