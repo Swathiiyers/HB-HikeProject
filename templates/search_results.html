@@ -51,10 +51,18 @@
     {% endif %}
 
     {% if "user_name" in session %}
-    <form action="/save-search">
-    <div align="center"><input type="submit" id="save" name="save-search" value="Save searches" align="center" />
-    </div>
+    <div align="center">
+    <form action="/save-search" method = "POST">
+    <input type="submit" id="save" name="save-search" value="Save searches" align="center" />
+    <input type = "hidden" name="city" value="{{ city }}">
+    <input type = "hidden" name="state" value="{{ state }}">
+    <input type = "hidden" name="radius" value="{{ radius }}">
+    <input type = "hidden" name="curr-lat" value="{{ curr_lat }}">
+    <input type = "hidden" name="curr-long" value="{{ curr_long }}">
+    <input type = "hidden" name="name" value="{{ session['user_name'] }}">
+
     </form>
+    </div>
     {% endif %}   
 
 

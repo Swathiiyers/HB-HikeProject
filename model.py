@@ -101,6 +101,7 @@ class Search(db.Model):
     lat_value = db.Column(db.Float, nullable=True)
     long_value = db.Column(db.Float, nullable=True)
     searched_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    radius = db.Column(db.Integer, nullable=False)
 
     def __repr__(self):
         """Provide helpful representation when printed."""

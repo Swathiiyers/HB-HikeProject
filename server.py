@@ -8,6 +8,7 @@ import os
 import pdb
 from model import connect_to_db, db, User, Rating, Comment, HikeTrail, Search
 from sqlalchemy import and_
+import datetime
 
 
 app = Flask(__name__)
@@ -84,20 +85,25 @@ def login_process():
     user_name = request.form["user_name"]
     password = request.form["password"]
 
-    check_user = User.query.filter_by(user_name=user_name, password=password).all()
+    check_user = User.query.filter_by(user_name=user_name).first()
 
 # If the password is incorrect (checking if check_user is None), go to login page again
 # Checking if the above query returns an empty list of objects
-    if check_user == []:
-        flash("Incorrect Username or password. Please try again!")
+    if not check_user:
+        flash("No such user")
+        return redirect("/choose-login")
+
+    if check_user.password != password:
+        flash("Incorrect password. Please try again!")
         return redirect('/choose-login')
-    else:
-            #If user exists, add user_id to the sesssion.
-        flash("You were successfully logged in")
-        # The user_id value (from the returned list) is added to the session dictionary
-        session["user_name"] = check_user[0].user_name
-        # user_name = session["user_name"]
-        return redirect("/user-profile")
+
+
+    #If user exists, add user_id to the sesssion.
+    flash("You were successfully logged in")
+    # The user_id value (from the returned list) is added to the session dictionary
+    session["user_name"] = check_user.user_name
+    # user_name = session["user_name"]
+    return redirect("/user-profile")
 
 
 @app.route('/logout')
@@ -127,6 +133,11 @@ def search_hike():
     send API request, push results to results page"""
     google_map_key = os.environ["GOOGLE_MAPS_KEY"]
 
+    city = None
+    state = None
+    curr_lat = None
+    curr_long = None
+
 # Checking if the request is from choose-search route of find-my-loc rout
 # Note that here 'request' is the form request, NOT the API requests.
     if "/choose-search" in request.referrer:
@@ -140,6 +151,8 @@ def search_hike():
                    "q[country_cont]": "United+States",
                    "radius": radius, "limit": 10}
 
+        # search_type = "search-by-city"
+
     elif "/search-by-loc" in request.referrer:
         radius = request.form["radius"]
         curr_lat = request.form["curr-lat"]
@@ -149,6 +162,8 @@ def search_hike():
         payload = {"q[activities_activity_type_name_eq]": "hiking",
                    "lat": curr_lat, "lon": curr_long, "limit": 20,
                    "radius": radius}
+
+        # search_type = "search-by-location"
 
     # Make API request, based on the payload values
     # Pass the payload argument to get_response function
@@ -162,9 +177,51 @@ def search_hike():
 
     return render_template("search_results.html",
                            result_list=result_list, latlong_list=latlong_list,
-                           google_map_key=google_map_key)
+                           google_map_key=google_map_key,
+                           city=city, state=state, radius=radius,
+                           curr_lat=curr_lat, curr_long=curr_long)
 
 
+# Adding a display route function, to display URL depending upon the search type
+# @app.route("/display-results/<search_type>"):
+# def display_results()
+
+@app.route("/save-search", methods=['POST'])
+def save_searches():
+    """Saves search criteria by the user"""
+
+    user_name = request.form["name"]
+    # user_name = session["user_name"]
+    session_user = User.query.filter_by(user_name=user_name).first()
+    user_id = session_user.user_id
+
+    city = request.form["city"]
+    state = request.form["state"]
+    radius = request.form["radius"]
+    curr_lat = request.form["curr-lat"]
+    curr_long = request.form["curr-long"]
+
+    # Checking if the request is from choose-search route of find-my-loc rout
+    # Note that here 'request' is the form request, NOT the API requests.
+    # if search_type == "search-by-city":
+    #     city = request.form["city"]
+    #     state = request.form["state"]
+    #     radius = request.form["radius"]
+
+    new_search = Search(user_id=user_id, city=city, state=state,
+                        lat_value=curr_lat, long_value=curr_long,
+                        radius=radius, searched_at=datetime.datetime.utcnow())
+
+    # elif search_type == "search-by-location":
+    #     radius = request.form["radius"]
+    #     curr_lat = request.form["curr-lat"]
+    #     curr_long = request.form["curr-long"]
+
+    db.session.add(new_search)
+    db.session.commit()
+    flash("Search added successfully")
+
+    return redirect("/")
 ################################################################################
 
 
