@@ -135,8 +135,8 @@ def search_hike():
 
     city = None
     state = None
-    curr_lat = None
-    curr_long = None
+    curr_lat = 0.0
+    curr_long = 0.0
 
 # Checking if the request is from choose-search route of find-my-loc rout
 # Note that here 'request' is the form request, NOT the API requests.
@@ -197,9 +197,9 @@ def save_searches():
 
     city = request.form["city"]
     state = request.form["state"]
-    radius = request.form["radius"]
-    curr_lat = request.form["curr-lat"]
-    curr_long = request.form["curr-long"]
+    radius = int(request.form["radius"])
+    curr_lat = float(request.form["curr-lat"])
+    curr_long = float(request.form["curr-long"])
 
     # Checking if the request is from choose-search route of find-my-loc rout
     # Note that here 'request' is the form request, NOT the API requests.
@@ -208,18 +208,23 @@ def save_searches():
     #     state = request.form["state"]
     #     radius = request.form["radius"]
 
-    new_search = Search(user_id=user_id, city=city, state=state,
-                        lat_value=curr_lat, long_value=curr_long,
-                        radius=radius, searched_at=datetime.datetime.utcnow())
+    search_query = Search.query.filter_by(user_id=user_id, city=city, state=state,
+                                          lat_value=curr_lat,
+                                          long_value=curr_long,
+                                          radius=radius).count()
+
+    if search_query == 0:
+        new_search = Search(user_id=user_id, city=city, state=state,
+                            lat_value=curr_lat, long_value=curr_long,
+                            radius=radius, searched_at=datetime.datetime.utcnow())
+        db.session.add(new_search)
+        db.session.commit()
+        flash("Search added successfully")
 
     # elif search_type == "search-by-location":
     #     radius = request.form["radius"]
     #     curr_lat = request.form["curr-lat"]
     #     curr_long = request.form["curr-long"]
-
-    db.session.add(new_search)
-    db.session.commit()
-    flash("Search added successfully")
 
     return redirect("/")
 ################################################################################
