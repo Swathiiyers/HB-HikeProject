@@ -32,7 +32,7 @@
       <p> Few words about {{ session["user_name"] }} </p>
     </div>
 
-    <div class="search-info">Display user's past searches<br>
+    <div class="search-info"><u><b>{{ session["user_name"] }}'s past searches:</u></b><br>
       {% if past_searches|length > 0 %}
       {% for search in past_searches %}
        <button type="button">{{ search.city }}, {{ search.state}} within {{ search.radius }} miles!</button><br>
@@ -41,16 +41,21 @@
       {% else %}   
       <p> {{ session["user_name"] }} has no saved searches </p>
       {% endif %}
-    </div>
+    </div><br><br>
 
-    <div id='reviews'>Display user's ratings and comments </div>
-    {% for rating in past_ratings %}
-     User has given {{ rating.trail_id }} a score of {{ rating.score }} <br>
-    {% endfor %}
 
-    {% for comment in past_comments %}
-     User has given {{ comment.trail_id }} a score of {{ comment.comment_description }} <br>
-    {% endfor %}
+
+    <div id='reviews'><u><b>{{ session["user_name"] }}'s reviews </u></b>
+      {% if past_reviews|length > 0 %}
+      {% for review in past_reviews %}
+       <p>User has rated the Trail ID: {{ review.trail_id }}  - with a score of {{ review.score}}.<br>
+        Comments are: {{ review.comment_description }}</p><br><br>
+      {% endfor %}
+
+      {% else %}   
+      <p> {{ session["user_name"] }} has not reviewed any hike </p>
+      {% endif %}
+
     </div>
 
 

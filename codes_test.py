@@ -202,8 +202,17 @@ for i in range(len(result_list)):
 new_comment = Comment(user_id=1, trail_id=293, comment_description="Enjoyed the hike. Spectacular views! Recommend to all nature lovers")
 new_comment2 = Comment(user_id=1, trail_id=280, comment_description="Awesome hike! Lovely time with friends and family")
 
-new_rating = Comment(user_id=1, trail_id=293, score=4)
-new_rating2 = Comment(user_id=1, trail_id=280)
+new_rating = Rating(user_id=1, trail_id=293, score=4)
+new_rating2 = Rating(user_id=1, trail_id=280)
+
+new_review = Review(user_id=1, trail_id=293, score=4, comment_description="Awesome hike! Lovely time with friends and family")
+new_review2 = Review(user_id=1, trail_id=280, comment_description="Enjoyed the hike. Spectacular views! Recommend to all nature lovers" )
+
+
+
+
+
+
 
 
 

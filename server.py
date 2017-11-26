@@ -1,12 +1,11 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
-from server_helpers import get_latlongs, get_response, add_to_HikeTrails_db, search_past_hikes, search_user_ratings, search_user_comments
-import requests, json
+from server_helpers import get_latlongs, get_response, add_to_HikeTrails_db, search_past_hikes, search_past_reviews
 import urllib
 import os
 import pdb
-from model import connect_to_db, db, User, Rating, Comment, HikeTrail, Search
+from model import connect_to_db, db, User, Review, HikeTrail, Search
 from sqlalchemy import and_
 import datetime
 
@@ -45,13 +44,18 @@ def show_userprofile(user_name):
     user_id = session_user.user_id
 
     past_searches = search_past_hikes(user_id)
-    past_ratings = search_user_ratings(user_id)
-    past_comments = search_user_comments(user_id)
+    # past_ratings = search_user_ratings(user_id)
+    # past_comments = search_user_comments(user_id)
+    past_reviews = search_past_reviews(user_id)
+
+    # return render_template("user_profile.html", user_name=user_name,
+    #                        past_searches=past_searches,
+    #                        past_ratings=past_ratings,
+    #                        past_comments=past_comments)
 
     return render_template("user_profile.html", user_name=user_name,
                            past_searches=past_searches,
-                           past_ratings=past_ratings,
-                           past_comments=past_comments)
+                           past_reviews=past_reviews)
 
 
 @app.route("/register", methods=["POST"])

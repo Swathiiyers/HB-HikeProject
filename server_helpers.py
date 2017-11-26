@@ -1,7 +1,7 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
-from model import connect_to_db, db, User, Rating, Comment, HikeTrail, Search
+from model import connect_to_db, db, User, Review, HikeTrail, Search
 import requests
 import urllib
 import os
@@ -80,19 +80,27 @@ def search_past_hikes(user_id):
     return past_searches
 
 
-def search_user_ratings(user_id):
+def search_past_reviews(user_id):
     """Take the user_id from server, query database and return the list of
     hikes the user has rated, along with the score"""
 
-    past_ratings = Rating.query.filter_by(user_id=user_id).all()
+    past_reviews = Review.query.filter_by(user_id=user_id).all()
 
-    return past_ratings
+    return past_reviews
+
+# def search_user_ratings(user_id):
+#     """Take the user_id from server, query database and return the list of
+#     hikes the user has rated, along with the score"""
+
+#     past_ratings = Rating.query.filter_by(user_id=user_id).all()
+
+#     return past_ratings
 
 
-def search_user_comments(user_id):
-    """Take the user_id from server, query database and return the list of
-    hikes the user has commented"""
+# def search_user_comments(user_id):
+#     """Take the user_id from server, query database and return the list of
+#     hikes the user has commented"""
 
-    past_comments = Comment.query.filter_by(user_id=user_id).all()
+#     past_comments = Comment.query.filter_by(user_id=user_id).all()
 
-    return past_comments
+#     return past_comments
