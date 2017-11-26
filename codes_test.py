@@ -39,6 +39,39 @@ for i in range(len(result_list)):
     # print "\n"
 
 
+    <script>
+
+      function getSearches(evt){
+
+        evt.preventDefault();
+        // if (past_searches.length > 0){
+        //   console.log("i successfully checked length");
+        //   var past_searches = {{ past_searches | tojson }};
+          $('.search-info').text("success");
+
+
+        console.log("success");
+      }
+
+      // function displaySearches(past_searches){
+      //   console.log("i come here");
+      //   for (let search in past_searches){
+
+      //     $('.search-info').append(search.city);
+      //   }
+
+        
+            // var btn = document.createElement("BUTTON");
+            // var t = document.createTextNode("CLICK ME");
+            // btn.appendChild(t);
+            // $('.search-info').append(btn);
+
+      $('#user-search').click(getSearches);
+
+
+
+    </script>
+
 
     # appending the lat, long value of dictionary to the list of latlong
 
@@ -166,7 +199,12 @@ for i in range(len(result_list)):
 
 #     </div>
 
-# new_comment = Comment(user_id=1, trail_id=293, comment_description="Enjoyed the hike. Spectacular views! Recommend to all nature lovers")
+new_comment = Comment(user_id=1, trail_id=293, comment_description="Enjoyed the hike. Spectacular views! Recommend to all nature lovers")
+new_comment2 = Comment(user_id=1, trail_id=280, comment_description="Awesome hike! Lovely time with friends and family")
+
+new_rating = Comment(user_id=1, trail_id=293, score=4)
+new_rating2 = Comment(user_id=1, trail_id=280)
+
 
 
 

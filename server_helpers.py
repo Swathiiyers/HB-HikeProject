@@ -75,18 +75,24 @@ def search_past_hikes(user_id):
     """Take the user_id from server, query database and return all the searches
     that user has saved"""
 
-    pass
+    past_searches = Search.query.filter_by(user_id=user_id).all()
+
+    return past_searches
 
 
 def search_user_ratings(user_id):
     """Take the user_id from server, query database and return the list of
     hikes the user has rated, along with the score"""
 
-    pass
+    past_ratings = Rating.query.filter_by(user_id=user_id).all()
+
+    return past_ratings
 
 
 def search_user_comments(user_id):
     """Take the user_id from server, query database and return the list of
     hikes the user has commented"""
 
-    pass
+    past_comments = Comment.query.filter_by(user_id=user_id).all()
+
+    return past_comments

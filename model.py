@@ -103,6 +103,9 @@ class Search(db.Model):
     searched_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     radius = db.Column(db.Integer, nullable=False)
 
+    user = db.relationship("User",
+                           backref=db.backref("searches", order_by=search_id))
+
     def __repr__(self):
         """Provide helpful representation when printed."""
 

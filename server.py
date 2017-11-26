@@ -2,7 +2,7 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from server_helpers import get_latlongs, get_response, add_to_HikeTrails_db, search_past_hikes, search_user_ratings, search_user_comments
-import requests
+import requests, json
 import urllib
 import os
 import pdb
@@ -44,11 +44,14 @@ def show_userprofile(user_name):
     session_user = User.query.filter_by(user_name=user_name).first()
     user_id = session_user.user_id
 
-    user_searches = search_past_hikes(user_id)
-    user_ratings = search_user_ratings(user_id)
-    user_comments = search_user_comments(user_id)
+    past_searches = search_past_hikes(user_id)
+    past_ratings = search_user_ratings(user_id)
+    past_comments = search_user_comments(user_id)
 
-    return render_template("user_profile.html", user_name=user_name)
+    return render_template("user_profile.html", user_name=user_name,
+                           past_searches=past_searches,
+                           past_ratings=past_ratings,
+                           past_comments=past_comments)
 
 
 @app.route("/register", methods=["POST"])
@@ -72,7 +75,7 @@ def register_user():
         db.session.commit()
 
         session["user_name"] = new_user.user_name
-        return redirect("/user-profile")
+        return redirect("/user-profile/%s" % new_user.user_name)
 
     else:
         flash("You have an account. Please login")
@@ -209,16 +212,16 @@ def save_searches():
                                           lat_value=curr_lat,
                                           long_value=curr_long,
                                           radius=radius).count()
+    if curr_lat == 0.0:
+        if search_query == 0:
+            new_search = Search(user_id=user_id, city=city, state=state,
+                                lat_value=curr_lat, long_value=curr_long,
+                                radius=radius, searched_at=datetime.datetime.utcnow())
+            db.session.add(new_search)
+            db.session.commit()
+            flash("Search added successfully")
 
-    if search_query == 0:
-        new_search = Search(user_id=user_id, city=city, state=state,
-                            lat_value=curr_lat, long_value=curr_long,
-                            radius=radius, searched_at=datetime.datetime.utcnow())
-        db.session.add(new_search)
-        db.session.commit()
-        flash("Search added successfully")
-
-    return redirect("/")
+    return redirect("/user-profile/%s" % user_name)
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point

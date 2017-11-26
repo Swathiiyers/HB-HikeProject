@@ -1,5 +1,5 @@
  {% extends 'base.html' %}
- {% block title %} {{ session["user_name"] }}]s Profile{% endblock %}
+ {% block title %} {{ session["user_name"] }}'s Profile{% endblock %}
     
      {% block content %}
     <p>Welcome, {{ session["user_name"] }}</p> 
@@ -32,9 +32,25 @@
       <p> Few words about {{ session["user_name"] }} </p>
     </div>
 
-    <div class="search-info">
-        <div id='past-searches'>Display user's past searches </div>
-        <div id='reviews'>Display user's ratings and comments </div>
+    <div class="search-info">Display user's past searches<br>
+      {% if past_searches|length > 0 %}
+      {% for search in past_searches %}
+       <button type="button">{{ search.city }}, {{ search.state}} within {{ search.radius }} miles!</button><br>
+      {% endfor %}
+
+      {% else %}   
+      <p> {{ session["user_name"] }} has no saved searches </p>
+      {% endif %}
+    </div>
+
+    <div id='reviews'>Display user's ratings and comments </div>
+    {% for rating in past_ratings %}
+     User has given {{ rating.trail_id }} a score of {{ rating.score }} <br>
+    {% endfor %}
+
+    {% for comment in past_comments %}
+     User has given {{ comment.trail_id }} a score of {{ comment.comment_description }} <br>
+    {% endfor %}
     </div>
 
 
