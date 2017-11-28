@@ -198,6 +198,7 @@ def search_hike():
                            curr_lat=curr_lat, curr_long=curr_long)
 
 
+# Route for adding searches by users to their profile
 @app.route("/save-search", methods=['POST'])
 def save_searches():
     """Saves search criteria by the user"""
@@ -229,6 +230,17 @@ def save_searches():
 
     return redirect("/user-profile/%s" % user_name)
 
+
+@app.route("/trail-page/<trail_id>")
+def show_trailpage(trail_id):
+    """Takes id of the trail selected from search results.
+        Displays the trail details with Review information"""
+
+    trail_info = HikeTrail.query.filter_by(trail_id=trail_id).all()
+    trail_reviews = Review.query.filter_by(trail_id=trail_id).all()
+
+    return render_template("trail_page.html", trail_info=trail_info,
+                            trail_reviews=trail_reviews)
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point

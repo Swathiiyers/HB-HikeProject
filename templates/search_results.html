@@ -45,7 +45,7 @@
 
                 markerId = this.id;
                 console.log(markerId);
-                $('#'+markerId).css('color','red')
+                $('#'+markerId).css('background-color','yellow')
 
                 $('html, body').animate({
                         scrollTop: $("#"+markerId).offset().top
@@ -80,7 +80,7 @@
 
               <div id={{ (result["unique_id"]) }}>
                 <ul>
-                    <li>Trail: {{ (result["name"]) }}</li>
+                    <a href="/trail-page/{{ (result['unique_id']) }}"> <li>Trail: {{ (result["name"]) }}</li></a>
                     <li>Hiking Trail ID: {{ (result["unique_id"]) }}</li>
                     <li>Description: {{ result["activities"][0]["description"] }}</li>
                     <li><a href="{{ result['activities'][0]['url'] }}">{{ result['activities'][0]['url'] }}</a> </li>

@@ -38,39 +38,39 @@ for i in range(len(result_list)):
     print "\n"
     # print "\n"
 
+# code for checking length
+    # <script>
 
-    <script>
+    #   function getSearches(evt){
 
-      function getSearches(evt){
-
-        evt.preventDefault();
-        // if (past_searches.length > 0){
-        //   console.log("i successfully checked length");
-        //   var past_searches = {{ past_searches | tojson }};
-          $('.search-info').text("success");
-
-
-        console.log("success");
-      }
-
-      // function displaySearches(past_searches){
-      //   console.log("i come here");
-      //   for (let search in past_searches){
-
-      //     $('.search-info').append(search.city);
-      //   }
-
-        
-            // var btn = document.createElement("BUTTON");
-            // var t = document.createTextNode("CLICK ME");
-            // btn.appendChild(t);
-            // $('.search-info').append(btn);
-
-      $('#user-search').click(getSearches);
+    #     evt.preventDefault();
+    #     // if (past_searches.length > 0){
+    #     //   console.log("i successfully checked length");
+    #     //   var past_searches = {{ past_searches | tojson }};
+    #       $('.search-info').text("success");
 
 
+    #     console.log("success");
+    #   }
 
-    </script>
+    #   // function displaySearches(past_searches){
+    #   //   console.log("i come here");
+    #   //   for (let search in past_searches){
+
+    #   //     $('.search-info').append(search.city);
+    #   //   }
+
+    
+    #         // var btn = document.createElement("BUTTON");
+    #         // var t = document.createTextNode("CLICK ME");
+    #         // btn.appendChild(t);
+    #         // $('.search-info').append(btn);
+
+    #   $('#user-search').click(getSearches);
+
+
+
+    # </script>
 
 
     # appending the lat, long value of dictionary to the list of latlong
@@ -207,6 +207,7 @@ new_rating2 = Rating(user_id=1, trail_id=280)
 
 new_review = Review(user_id=1, trail_id=293, score=4, comment_description="Awesome hike! Lovely time with friends and family")
 new_review2 = Review(user_id=1, trail_id=280, comment_description="Enjoyed the hike. Spectacular views! Recommend to all nature lovers" )
+new_review3 = Review(user_id=2, trail_id=293, score=5, comment_description="Must-do place in every hiker's list! Great place to enjoy a sunny weekend morning!" )
 
 
 
