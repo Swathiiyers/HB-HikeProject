@@ -1,10 +1,17 @@
-
 #map {
   height: 350px;
   width: 400px;
   text-align: center;
 
 }
+
+/*.results-map{
+  float: right;
+}
+
+.results-latlong{
+  float: left;
+}*/
 
 body,html{
     height: 100%;

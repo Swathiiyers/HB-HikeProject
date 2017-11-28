@@ -42,7 +42,7 @@ def add_to_HikeTrails_db(result_list):
         if check_trail == 0:
             new_trail = HikeTrail(trail_id=trail_id, trail_name=trail_name,
                                   trail_description=trail_description,
-                                   trail_length=trail_length)
+                                  trail_length=trail_length)
             # Adding new user to the database and commit
             db.session.add(new_trail)
     db.session.commit()
@@ -60,9 +60,14 @@ def get_latlongs(result_list):
 
     # For loop to append each latlong pair to the list of latlong dict (d)
     for i in range(len(result_list)):
-        d['lat'] = result_list[i]["lat"]
-        d['lng'] = result_list[i]["lon"]
-        # appending the lat, long value of dictionary to the list of latlong
+
+        d['latlong'] = {'lat': result_list[i]["lat"], 'lng': result_list[i]["lon"]}
+
+        # Adding trail information, to be able to pass to map info Window and div elements
+        d['trail_id'] = result_list[i]["unique_id"]
+        d['trail_name'] = result_list[i]["name"]
+
+        # appending the latlong values and trail information to the dictionary
         latlong_list.append(d)
         # The dictionary is made empty again, to avoid over-writing same
         # dict values, all over the list.

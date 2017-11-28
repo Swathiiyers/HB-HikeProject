@@ -6,70 +6,116 @@
     {% if "user_name" in session %}
     <h2> Hey, {{ session["user_name"] }}</h2>
     {% endif %}
+    <div class="map-wrapper">
+        <div id="map" class="results-map">           
+            <script>
+              function initMap() {
+              // Taking the latlong dict values from python function
+              var locArray = {{ latlong_list|tojson }};
+              // adding the center of the search place to the first marker out of the list
+              var locCenter= locArray[0]["latlong"];
+              console.log(locArray);
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: locCenter
+              });
+              for (var i = 0; i < locArray.length; i++){
+              var marker = new google.maps.Marker({
+                position: locArray[i]["latlong"],
+                map: map,
+                icon: "/static/hiking.png"
+                });
 
-    <div id="map" align="center">           
-        <script>
-          function initMap() {
-          // Taking the latlong dict values from python function
-          var locArray = {{ latlong_list|tojson }};
-          // adding the center of the search place to the first marker out of the list
-          var locCenter= locArray[0];
-          console.log(locArray);
-          var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
-            center: locCenter
-          });
-          for (var i = 0; i < locArray.length; i++){
-          var marker = new google.maps.Marker({
-            position: locArray[i],
-            map: map
-            });
-         }  //End of for loop
-    }
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key={{ google_map_key }}&callback=initMap"
-        async defer></script>  
+              // added marker ID for infowindow
+              marker.id = locArray[i]["trail_id"]
+              // Adding the trail_name to the info window of the marker
+              let contentString = '<div id="content">' +
+                '<p><b>'+ locArray[i]["trail_name"] + '<b></p>' +
+                '</div>';
+
+              let infoWindow = new google.maps.InfoWindow({
+                content: contentString,
+                maxWidth: 150
+              });
+
+
+              // Binding each info window to the corresponding hiketrail
+              bindInfoWindow(marker, map, infoWindow, contentString)
+              marker.addListener('click', function(){
+
+                markerId = this.id;
+                console.log(markerId);
+                $('#'+markerId).css('color','red')
+
+                $('html, body').animate({
+                        scrollTop: $("#"+markerId).offset().top
+                    });
+                
+                console.log('infoWindow got clicked');
+              })
+
+             }  //End of for loop
+        }
+
+        function bindInfoWindow(marker, map, infowindow, html) {
+            marker.addListener('click', function() {
+                infowindow.setContent(html);
+                infowindow.open(map, this);
+    });
+}
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key={{ google_map_key }}&callback=initMap"
+            async defer></script>  
+        </div>  
+        <!-- End of maps div -->
+
+
+      <div class="results-latlong">
+          {% if result_list | length == 0 %}
+              <p> Sorry, there are no hikes listed :(</p>
+
+          {% else %}
+          <p> The results are: </p>
+              {% for result in result_list %}
+
+              <div id={{ (result["unique_id"]) }}>
+                <ul>
+                    <li>Trail: {{ (result["name"]) }}</li>
+                    <li>Hiking Trail ID: {{ (result["unique_id"]) }}</li>
+                    <li>Description: {{ result["activities"][0]["description"] }}</li>
+                    <li><a href="{{ result['activities'][0]['url'] }}">{{ result['activities'][0]['url'] }}</a> </li>
+                    <li>Length: {{ result["activities"][0]["length"] }}</li>
+
+
+                </ul>
+              </div>
+
+              {% endfor %}
+          {% endif %}
+
+      </div>
+
     </div>
-
-
-    {% if result_list | length == 0 %}
-        <p> Sorry, there are no hikes listed :(</p>
-
-    {% else %}
-    <p> The results are: </p>
-        {% for result in result_list %}
-        <ul>
-            <li>Trail: {{ (result["name"]) }}</li>
-            <li>Hiking Trail ID: {{ (result["unique_id"]) }}</li>
-            <li>Description: {{ result["activities"][0]["description"] }}</li>
-            <li><a href="{{ result['activities'][0]['url'] }}">{{ result['activities'][0]['url'] }}</a> </li>
-            <li>Length: {{ result["activities"][0]["length"] }}</li>
-
-
-        </ul>
-        {% endfor %}
-    {% endif %}
-
 
 
     {% if "user_name" in session %}
     {# Display 'save searches' button only when user searches by city #} 
       {% if (curr_lat == 0.0): %}
-    <div align="center">
-    <form action="/save-search" method = "POST">
-    <input type="submit" id="save" name="save-search" value="Save searches" align="center" />
-    <input type = "hidden" name="city" value="{{ city }}">
-    <input type = "hidden" name="state" value="{{ state }}">
-    <input type = "hidden" name="radius" value="{{ radius }}">
-    <input type = "hidden" name="curr-lat" value="{{ curr_lat }}">
-    <input type = "hidden" name="curr-long" value="{{ curr_long }}">
-    <input type = "hidden" name="name" value="{{ session['user_name'] }}">
+      <div align="center">
+      <form action="/save-search" method = "POST">
+      <input type="submit" id="save" name="save-search" value="Save searches" align="center" />
+      <input type = "hidden" name="city" value="{{ city }}">
+      <input type = "hidden" name="state" value="{{ state }}">
+      <input type = "hidden" name="radius" value="{{ radius }}">
+      <input type = "hidden" name="curr-lat" value="{{ curr_lat }}">
+      <input type = "hidden" name="curr-long" value="{{ curr_long }}">
+      <input type = "hidden" name="name" value="{{ session['user_name'] }}">
 
-    </form>
-    </div>
+      </form>
+      </div>
       {% endif %}      
     {% endif %}   
 
 
 
-   {% endblock %}
+       {% endblock %}

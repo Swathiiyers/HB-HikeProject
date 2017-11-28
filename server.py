@@ -16,6 +16,7 @@ app = Flask(__name__)
 app.secret_key = "ABC"
 
 app.jinja_env.undefined = StrictUndefined
+app.jinja_env.auto_reload = True
 app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
 
 
@@ -217,6 +218,7 @@ def save_searches():
                                           long_value=curr_long,
                                           radius=radius).count()
     if curr_lat == 0.0:
+        # Check if the search is already saved by the user or not
         if search_query == 0:
             new_search = Search(user_id=user_id, city=city, state=state,
                                 lat_value=curr_lat, long_value=curr_long,
@@ -226,6 +228,7 @@ def save_searches():
             flash("Search added successfully")
 
     return redirect("/user-profile/%s" % user_name)
+
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
