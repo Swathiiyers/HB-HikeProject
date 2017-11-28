@@ -8,6 +8,7 @@ import pdb
 from model import connect_to_db, db, User, Review, HikeTrail, Search
 from sqlalchemy import and_
 import datetime
+import requests
 
 
 app = Flask(__name__)
@@ -57,6 +58,44 @@ def show_userprofile(user_name):
     return render_template("user_profile.html", user_name=user_name,
                            past_searches=past_searches,
                            past_reviews=past_reviews)
+
+
+@app.route('/saved-results')
+def show_results():
+    """Get button click inputs from the user profile and return results"""
+
+    google_map_key = os.environ["GOOGLE_MAPS_KEY"]
+
+    city = None
+    state = None
+    curr_lat = 0.0
+    curr_long = 0.0
+
+    city = request.args.get("city")
+    state = request.args.get("state")
+    radius = request.args.get("radius")
+
+    # The payload params includes the city, state and radius values
+    payload = {"q[activities_activity_type_name_eq]": "hiking",
+               "q[city_cont]": city, "q[state_cont]": state,
+               "q[country_cont]": "United+States",
+               "radius": radius, "limit": 10}
+
+    results = get_response(payload)
+    result_list = results["places"]
+
+    print result_list
+
+    # Add results to the HikeTrails database
+    add_to_HikeTrails_db(result_list)
+    # Get the latlong values of all the search results
+    latlong_list = get_latlongs(result_list)
+
+    return render_template("search_results.html",
+                           result_list=result_list, latlong_list=latlong_list,
+                           google_map_key=google_map_key,
+                           city=city, state=state, radius=radius,
+                           curr_lat=curr_lat, curr_long=curr_long)
 
 
 @app.route("/register", methods=["POST"])
@@ -135,6 +174,16 @@ def show_searchpage():
 
     return render_template("search_page.html")
 
+# @app.route("/choose-search/<city>/<state>/<radius>")
+# def show_searchpage(city, state, radius):
+#     """Direct to the Hike search page upon button click"""
+
+#     city = city
+#     state = state
+#     radius = radius
+
+#     return redirect("search_page.html", city=city, state=state, radius=radius)
+
 
 @app.route("/search-by-loc")
 def find_loc():
@@ -166,8 +215,6 @@ def search_hike():
                    "q[city_cont]": city, "q[state_cont]": state,
                    "q[country_cont]": "United+States",
                    "radius": radius, "limit": 10}
-
-        # search_type = "search-by-city"
 
     elif "/search-by-loc" in request.referrer:
         radius = request.form["radius"]
@@ -239,8 +286,11 @@ def show_trailpage(trail_id):
     trail_info = HikeTrail.query.filter_by(trail_id=trail_id).all()
     trail_reviews = Review.query.filter_by(trail_id=trail_id).all()
 
+    # Search for campground and show the campground infor using the API based on latlong values
+    # res = requests.get("http://api.amp.active.com/camping/campgrounds?landmarkName=true&landmarkLat=37.84035&landmarkLong=-122.4888889&xml=true&api_key=2chxq68e")
+
     return render_template("trail_page.html", trail_info=trail_info,
-                            trail_reviews=trail_reviews)
+                           trail_reviews=trail_reviews)
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point

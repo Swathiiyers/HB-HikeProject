@@ -34,8 +34,14 @@
 
     <div class="search-info"><u><b>{{ session["user_name"] }}'s past searches:</u></b><br>
       {% if past_searches|length > 0 %}
+
       {% for search in past_searches %}
-       <button type="button">{{ search.city }}, {{ search.state}} within {{ search.radius }} miles!</button><br>
+<!-- Creating button for every search result with details -->
+       <button type="button" onclick="window.location.href='/saved-results?city={{ search.city }}&state={{ search.state}}&radius={{ search.radius }}'">{{ search.city }}, {{ search.state}} within {{ search.radius }} miles!</button>
+             <input type = "hidden" name="city" value="{{ search.city }}">
+              <input type = "hidden" name="state" value="{{ search.state }}">
+              <input type = "hidden" name="radius" value="{{ search.radius }}"><br>
+
       {% endfor %}
 
       {% else %}   

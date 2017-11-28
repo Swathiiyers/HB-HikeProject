@@ -210,18 +210,4 @@ new_review2 = Review(user_id=1, trail_id=280, comment_description="Enjoyed the h
 new_review3 = Review(user_id=2, trail_id=293, score=5, comment_description="Must-do place in every hiker's list! Great place to enjoy a sunny weekend morning!" )
 
 
-
-
-         <div class="navbar-header">
-           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="bs-sidebar-navbar-collapse-1">
-             <span class="sr-only">Toggle navigation</span>
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-           </button>      
-         </div>
-
-
-
-
-
+href="/choose-search/{{ search.city }}/{{ search.state }}/{{ search.radius }}"

@@ -18,6 +18,9 @@ def get_response(payload):
     # Using urllib to encode params to URL, replace encoded characters to the URL compatible chars
     param_url = urllib.urlencode(payload).replace('%5D', ']').replace('%5B', '[').replace('%2B', '+')
 
+    # Prints the param_url on terminal window for testing purpose
+    print param_url
+
     # Concatenating base_url with final_url, to get the final_url to pass to API request.get
     final_url = base_url + param_url
     my_key = os.environ["X_MASHAPE_KEY"]

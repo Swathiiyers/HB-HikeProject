@@ -7,69 +7,8 @@
     <h2> Hey, {{ session["user_name"] }}</h2>
     {% endif %}
     <div class="map-wrapper">
-        <div id="map" class="results-map">           
-            <script>
-              function initMap() {
-              // Taking the latlong dict values from python function
-              var locArray = {{ latlong_list|tojson }};
-              // adding the center of the search place to the first marker out of the list
-              var locCenter= locArray[0]["latlong"];
-              console.log(locArray);
-              var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 4,
-                center: locCenter
-              });
-              for (var i = 0; i < locArray.length; i++){
-              var marker = new google.maps.Marker({
-                position: locArray[i]["latlong"],
-                map: map,
-                icon: "/static/hiking.png"
-                });
-
-              // added marker ID for infowindow
-              marker.id = locArray[i]["trail_id"]
-              // Adding the trail_name to the info window of the marker
-              let contentString = '<div id="content">' +
-                '<p><b>'+ locArray[i]["trail_name"] + '<b></p>' +
-                '</div>';
-
-              let infoWindow = new google.maps.InfoWindow({
-                content: contentString,
-                maxWidth: 150
-              });
-
-
-              // Binding each info window to the corresponding hiketrail
-              bindInfoWindow(marker, map, infoWindow, contentString)
-              marker.addListener('click', function(){
-
-                markerId = this.id;
-                console.log(markerId);
-                $('#'+markerId).css('background-color','yellow')
-
-                $('html, body').animate({
-                        scrollTop: $("#"+markerId).offset().top
-                    });
-                
-                console.log('infoWindow got clicked');
-              })
-
-             }  //End of for loop
-        }
-
-        function bindInfoWindow(marker, map, infowindow, html) {
-            marker.addListener('click', function() {
-                infowindow.setContent(html);
-                infowindow.open(map, this);
-    });
-}
-            </script>
-            <script src="https://maps.googleapis.com/maps/api/js?key={{ google_map_key }}&callback=initMap"
-            async defer></script>  
-        </div>  
-        <!-- End of maps div -->
-
-
+      <!-- Start of results div -->
+      <div class="col-sm-6">
       <div class="results-latlong">
           {% if result_list | length == 0 %}
               <p> Sorry, there are no hikes listed :(</p>
@@ -94,8 +33,74 @@
           {% endif %}
 
       </div>
-
     </div>
+
+<!-- Start of maps div -->
+    <div class="col-sm-6">
+    <div id="map" class="results-map">           
+        <script>
+          function initMap() {
+          // Taking the latlong dict values from python function
+          var locArray = {{ latlong_list|tojson }};
+          // adding the center of the search place to the first marker out of the list
+          var locCenter= locArray[0]["latlong"];
+          console.log(locArray);
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: locCenter
+          });
+          for (var i = 0; i < locArray.length; i++){
+          var marker = new google.maps.Marker({
+            position: locArray[i]["latlong"],
+            map: map,
+            icon: "/static/hiking.png"
+            });
+
+          // added marker ID for infowindow
+          marker.id = locArray[i]["trail_id"]
+          // Adding the trail_name to the info window of the marker
+          let contentString = '<div id="content">' +
+            '<p><b>'+ locArray[i]["trail_name"] + '<b></p>' +
+            '</div>';
+
+          let infoWindow = new google.maps.InfoWindow({
+            content: contentString,
+            maxWidth: 150
+          });
+
+
+          // Binding each info window to the corresponding hiketrail
+          bindInfoWindow(marker, map, infoWindow, contentString)
+          marker.addListener('click', function(){
+
+            markerId = this.id;
+            console.log(markerId);
+            $('#'+markerId).css('background-color','yellow')
+
+            $('html, body').animate({
+                    scrollTop: $("#"+markerId).offset().top
+                });
+            
+            console.log('infoWindow got clicked');
+          })
+
+         }  //End of for loop
+    }
+
+    function bindInfoWindow(marker, map, infowindow, html) {
+        marker.addListener('click', function() {
+            infowindow.setContent(html);
+            infowindow.open(map, this);
+});
+}
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key={{ google_map_key }}&callback=initMap"
+        async defer></script>  
+    </div>  
+  </div>
+    <!-- End of maps div -->
+
+</div>
 
 
     {% if "user_name" in session %}

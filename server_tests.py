@@ -21,11 +21,11 @@ class routeTests(unittest.TestCase):
 
     # Test whether the search page loads correctly
     # Note: just the page-load tested here, not the button-click
-    def test_searchpage(self):
-        """Test for opening searchpage"""
+    # def test_searchpage(self):
+    #     """Test for opening searchpage"""
 
-        result = self.client.get("/choose-search")
-        self.assertIn("Search your favorite", result.data)
+    #     result = self.client.get("/choose-search")
+    #     self.assertIn("Search your favorite", result.data)
 
     # Test navigation of page by giving dummy input
     # Note: This is not button-click tests
