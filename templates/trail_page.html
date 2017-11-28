@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Results Page{% endblock %}
+
+    {% block content %}
+        {% for trail in trail_info %}
+        <p>{{ trail.trail_name }}</p><br>
+        {% endfor %}
+
+    {% for review in trail_reviews %}
+        <p>{{ review.comment_description }} </p>
+    {% endfor %}
+
+    {% endblock %}
