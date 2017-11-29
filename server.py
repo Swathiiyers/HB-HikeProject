@@ -1,7 +1,7 @@
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
-from server_helpers import get_latlongs, get_response, add_to_HikeTrails_db, search_past_hikes, search_past_reviews
+from server_helpers import get_latlongs, get_response, add_to_HikeTrails_db, search_past_hikes
 import urllib
 import os
 import pdb
@@ -48,7 +48,7 @@ def show_userprofile(user_name):
     past_searches = search_past_hikes(user_id)
     # past_ratings = search_user_ratings(user_id)
     # past_comments = search_user_comments(user_id)
-    past_reviews = search_past_reviews(user_id)
+    past_reviews = session_user.reviews
 
     # return render_template("user_profile.html", user_name=user_name,
     #                        past_searches=past_searches,
@@ -283,14 +283,14 @@ def show_trailpage(trail_id):
     """Takes id of the trail selected from search results.
         Displays the trail details with Review information"""
 
-    trail_info = HikeTrail.query.filter_by(trail_id=trail_id).all()
-    trail_reviews = Review.query.filter_by(trail_id=trail_id).all()
+    trail = HikeTrail.query.get(trail_id)
 
+    # joining trail and reviews backref (to avoid join query)
+    trail_reviews = trail.reviews
     # Search for campground and show the campground infor using the API based on latlong values
     # res = requests.get("http://api.amp.active.com/camping/campgrounds?landmarkName=true&landmarkLat=37.84035&landmarkLong=-122.4888889&xml=true&api_key=2chxq68e")
 
-    return render_template("trail_page.html", trail_info=trail_info,
-                           trail_reviews=trail_reviews)
+    return render_template("trail_page.html", trail_reviews=trail_reviews)
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point

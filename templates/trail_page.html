@@ -16,14 +16,14 @@
     <p>Resize the browser window to see the effect.</p>      
     <div class="row">
         <div class="col-sm-6" style="border-color: black">
-            {% for trail in trail_info %}
-            <p>{{ trail.trail_name }}</p><br>
+            {% for review in trail_reviews %}
+            <p>Comments: {{ review.comment_description}}</p>made by :{{ review.user.user_name }} <br>
             {% endfor %}  
         </div>
 
         <div class="col-sm-6">
         {% for review in trail_reviews %}
-            <p>{{ review.comment_description }} </p>
+            <p>dummy review </p>
         {% endfor %} 
 
             <div style="float: left; padding: 8px 8px 8px 8px; border-right: 1px solid #ccc; background: yellow">

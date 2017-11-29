@@ -60,7 +60,6 @@ for i in range(len(result_list)):
     #   //     $('.search-info').append(search.city);
     #   //   }
 
-    
     #         // var btn = document.createElement("BUTTON");
     #         // var t = document.createTextNode("CLICK ME");
     #         // btn.appendChild(t);
@@ -120,94 +119,15 @@ for i in range(len(result_list)):
 
 # navigator.geolocation.getCurrentPosition( function(position) {
 
+# new_comment = Comment(user_id=1, trail_id=293, comment_description="Enjoyed the hike. Spectacular views! Recommend to all nature lovers")
+# new_comment2 = Comment(user_id=1, trail_id=280, comment_description="Awesome hike! Lovely time with friends and family")
+
+# new_rating = Rating(user_id=1, trail_id=293, score=4)
+# new_rating2 = Rating(user_id=1, trail_id=280)
+
+# new_review = Review(user_id=1, trail_id=293, score=4, comment_description="Awesome hike! Lovely time with friends and family")
+# new_review2 = Review(user_id=1, trail_id=280, comment_description="Enjoyed the hike. Spectacular views! Recommend to all nature lovers" )
+# new_review3 = Review(user_id=2, trail_id=293, score=5, comment_description="Must-do place in every hiker's list! Great place to enjoy a sunny weekend morning!" )
 
 
-#     <script tage for findmyloc
-
-# // var x = document.getElementById("demo");
-
-# // function getLocation() {
-# //     if (navigator.geolocation) {
-# //         navigator.geolocation.getCurrentPosition(showPosition);
-# //     } else {
-# //         x.innerHTML = "Geolocation is not supported by this browser.";
-# //     }
-# // }
-
-# // function showPosition(position) {
-# //     x.innerHTML = "Latitude: " + position.coords.latitude +
-# //     "<br>Longitude: " + position.coords.longitude;
-# }
-
-
-
- # document.getElementById("#curr-lat").value =  + position.coords.latitude +
- #  document.getElementById("#curr-long").value = + position.coords.longitude +
-
-
- # #######################################################################
-# login_form (previous)
-#  <!-- {% extends 'base.html' %}
-# {% block content %}
-
-#     <h1>Login</h1>
-#     <form action="/choose-login" method="POST">
-#         <div>
-#                 Enter your name:        <input type="text" name="user_name"><br>
-#                 Enter your login email: <input type="email" name="email" required><br>
-#                 Enter the password:     <input type="password" name="password" required><br>
-#                 <input type="submit" value="Log In">
-#         </div>
-
-#     </form>
-# {% endblock %}
-
-
-#  -->
-
-
-# User profile code:
-# {% extends 'base.html' %}
-# {% block title %}User Profile{% endblock %}
-    
-#     {% block content %}
-    
-#     <p>Welcome, {{ session["user_name"] }}</p>
-
-#     <nav class="navbar navbar-default sidebar" role="navigation">
-#         <div class="container-fluid">
-#         <div class="navbar-header">
-#           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
-#             <span class="sr-only">Toggle navigation</span>
-#             <span class="icon-bar"></span>
-#             <span class="icon-bar"></span>
-#             <span class="icon-bar"></span>
-#           </button>
-#         </div>
-#         <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-#           <ul class="nav navbar-nav">
-#             <li class="active"><a href="#">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-#                 <li><a href="#">Past searches</a></li>
-#                 <li><a href="#">Ratings</a></li>
-#                 <li class="divider"></li>
-#               </ul>
-#             </li>
-#           </ul>
-#         </div>
-#       </div>
-#     </nav>
-
-#     </div>
-
-new_comment = Comment(user_id=1, trail_id=293, comment_description="Enjoyed the hike. Spectacular views! Recommend to all nature lovers")
-new_comment2 = Comment(user_id=1, trail_id=280, comment_description="Awesome hike! Lovely time with friends and family")
-
-new_rating = Rating(user_id=1, trail_id=293, score=4)
-new_rating2 = Rating(user_id=1, trail_id=280)
-
-new_review = Review(user_id=1, trail_id=293, score=4, comment_description="Awesome hike! Lovely time with friends and family")
-new_review2 = Review(user_id=1, trail_id=280, comment_description="Enjoyed the hike. Spectacular views! Recommend to all nature lovers" )
-new_review3 = Review(user_id=2, trail_id=293, score=5, comment_description="Must-do place in every hiker's list! Great place to enjoy a sunny weekend morning!" )
-
-
-href="/choose-search/{{ search.city }}/{{ search.state }}/{{ search.radius }}"
+# href="/choose-search/{{ search.city }}/{{ search.state }}/{{ search.radius }}"

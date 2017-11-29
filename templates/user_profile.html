@@ -54,7 +54,7 @@
     <div id='reviews'><u><b>{{ session["user_name"] }}'s reviews </u></b>
       {% if past_reviews|length > 0 %}
       {% for review in past_reviews %}
-       <p>User has rated the Trail ID: {{ review.trail_id }}  - with a score of {{ review.score}}.<br>
+       <p>User has rated the Trail: {{ review.hiketrail.trail_name }}  - with a score of {{ review.score}}.<br>
         Comments are: {{ review.comment_description }}</p><br><br>
       {% endfor %}
 
