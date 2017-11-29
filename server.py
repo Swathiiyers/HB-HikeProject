@@ -84,8 +84,6 @@ def show_results():
     results = get_response(payload)
     result_list = results["places"]
 
-    print result_list
-
     # Add results to the HikeTrails database
     add_to_HikeTrails_db(result_list)
     # Get the latlong values of all the search results
@@ -290,7 +288,23 @@ def show_trailpage(trail_id):
     # Search for campground and show the campground infor using the API based on latlong values
     # res = requests.get("http://api.amp.active.com/camping/campgrounds?landmarkName=true&landmarkLat=37.84035&landmarkLong=-122.4888889&xml=true&api_key=2chxq68e")
 
-    return render_template("trail_page.html", trail_reviews=trail_reviews)
+    return render_template("trail_page.html", trail_reviews=trail_reviews, trail_id=trail_id)
+
+
+@app.route("/add-review", methods=['POST'])
+def add_review():
+    """Add a review order to our database."""
+
+    score = request.form.get("score")
+    comment_description = request.form.get("commentText")
+    trail_id = request.form["trail_id"]
+
+    # add an order to our database here
+
+    print "\n\nNEW comment %s %s %s\n\n" % (
+        score, comment_description, trail_id)
+    return None
+
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point

@@ -41,23 +41,26 @@ Please select the radius range(in miles) and hit 'Go'!:
 
 </form>
 </div>
-<script>
 
-function getLocation(){
- navigator.geolocation.getCurrentPosition(showPosition);
-}
+  <script>
 
-function showRadiusDropdown(){
-      $("#loc-radius").show();
-}
+  function getLocation(){
+   navigator.geolocation.getCurrentPosition(showPosition);
+  }
 
-function showPosition(position) { 
-  document.getElementById("curr-lat").value = position.coords.latitude;
-  document.getElementById("curr-long").value = position.coords.longitude;
-  showRadiusDropdown();
-}
+  function showRadiusDropdown(){
+        $("#loc-radius").show();
+  }
 
-$("#loc-radius").hide();</script>
+  function showPosition(position) { 
+    document.getElementById("curr-lat").value = position.coords.latitude;
+    document.getElementById("curr-long").value = position.coords.longitude;
+    showRadiusDropdown();
+  }
+
+  $("#loc-radius").hide();
+
+  </script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 

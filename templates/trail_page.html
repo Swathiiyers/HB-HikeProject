@@ -1,19 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Individual result page</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}Results Page{% endblock %}
+
+   {% block content %}
+
+    {% if "user_name" in session %}
+    <h2> Hey, {{ session["user_name"] }}</h2>
+    {% endif %}
 
 <div class="container">
-    <h1>Grid</h1>
    
-    <p>Resize the browser window to see the effect.</p>      
     <div class="row">
         <div class="col-sm-6" style="border-color: black">
             {% for review in trail_reviews %}
@@ -23,7 +18,7 @@
 
         <div class="col-sm-6">
         {% for review in trail_reviews %}
-            <p>dummy review </p>
+            <p>{{ review.trail_id }} </p>
         {% endfor %} 
 
             <div style="float: left; padding: 8px 8px 8px 8px; border-right: 1px solid #ccc; background: yellow">
@@ -36,23 +31,185 @@
             </div>
         </div>
 
+    </div> 
+    <!-- End of row 1 -->
 
-    </div>
 
+<!-- Row that displays the map and campground information -->
     <div class="row">
         <div class="col-sm-8">
-            <h1> Map centered at the city of the individual hike </h1>  
+            <p> Map centered at the city of the individual hike </p1>  
         </div>
 
         <div class="col-sm-4">
-            <h1> Campground info </h1>  
+            <p> Campground info </p>  
         </div>
-
-
     </div>
 
 
+<!-- Row that displays the ratings and comments information -->
+    <div class="row lead">
+        <div id="stars" class="starrr"></div>
+        You gave a rating of <span id="count">0</span> star(s)
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-6" style="border-color: black">
+            Add comments here: 
+            <textarea id="comments" rows="4" cols="50">
+
+            </textarea>
+
+    </div>
+
+    <input type="text" id="trail-id" name="trail_id" value="{{ trail_id }}">
+
+    <button type="button" id="add-review" onclick="submitComment()">Click me</button>
+
 </div>  
 <!-- End of container div -->
-</body>
-</html>
+
+{% endblock %}
+
+{% block script %}
+
+    <script>
+
+        let buttonText = document.querySelector('#add-review');
+
+        function submitComment(evt) {
+
+            let formInputs = {
+                "score": $('#count').text(),
+                "commentText": $("#comments").val(),
+            };
+
+            $.post("/add-review",
+                   formInputs,
+                   submitComment);
+            }
+
+        buttonText.addEventListener('click', submitComment);
+
+    </script>
+
+    <script>
+        var __slice = [].slice;
+
+        (function($, window) {
+          var Starrr;
+
+          Starrr = (function() {
+            Starrr.prototype.defaults = {
+              rating: void 0,
+              numStars: 5,
+              change: function(e, value) {}
+            };
+
+            function Starrr($el, options) {
+              var i, _, _ref,
+                _this = this;
+
+              this.options = $.extend({}, this.defaults, options);
+              this.$el = $el;
+              _ref = this.defaults;
+              for (i in _ref) {
+                _ = _ref[i];
+                if (this.$el.data(i) != null) {
+                  this.options[i] = this.$el.data(i);
+                }
+              }
+              this.createStars();
+              this.syncRating();
+              this.$el.on('mouseover.starrr', 'span', function(e) {
+                return _this.syncRating(_this.$el.find('span').index(e.currentTarget) + 1);
+              });
+              this.$el.on('mouseout.starrr', function() {
+                return _this.syncRating();
+              });
+              this.$el.on('click.starrr', 'span', function(e) {
+                return _this.setRating(_this.$el.find('span').index(e.currentTarget) + 1);
+              });
+              this.$el.on('starrr:change', this.options.change);
+            }
+
+            Starrr.prototype.createStars = function() {
+              var _i, _ref, _results;
+
+              _results = [];
+              for (_i = 1, _ref = this.options.numStars; 1 <= _ref ? _i <= _ref : _i >= _ref; 1 <= _ref ? _i++ : _i--) {
+                _results.push(this.$el.append("<span class='glyphicon .glyphicon-star-empty'></span>"));
+              }
+              return _results;
+            };
+
+            Starrr.prototype.setRating = function(rating) {
+              if (this.options.rating === rating) {
+                rating = void 0;
+              }
+              this.options.rating = rating;
+              this.syncRating();
+              return this.$el.trigger('starrr:change', rating);
+            };
+
+            Starrr.prototype.syncRating = function(rating) {
+              var i, _i, _j, _ref;
+
+              rating || (rating = this.options.rating);
+              if (rating) {
+                for (i = _i = 0, _ref = rating - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+                  this.$el.find('span').eq(i).removeClass('glyphicon-star-empty').addClass('glyphicon-star');
+                }
+              }
+              if (rating && rating < 5) {
+                for (i = _j = rating; rating <= 4 ? _j <= 4 : _j >= 4; i = rating <= 4 ? ++_j : --_j) {
+                  this.$el.find('span').eq(i).removeClass('glyphicon-star').addClass('glyphicon-star-empty');
+                }
+              }
+              if (!rating) {
+                return this.$el.find('span').removeClass('glyphicon-star').addClass('glyphicon-star-empty');
+              }
+            };
+
+            return Starrr;
+
+          })();
+          return $.fn.extend({
+            starrr: function() {
+              var args, option;
+
+              option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+              return this.each(function() {
+                var data;
+
+                data = $(this).data('star-rating');
+                if (!data) {
+                  $(this).data('star-rating', (data = new Starrr($(this), option)));
+                }
+                if (typeof option === 'string') {
+                  return data[option].apply(data, args);
+                }
+              });
+            }
+          });
+        })(window.jQuery, window);
+
+        $(function() {
+          return $(".starrr").starrr();
+        });
+
+        $( document ).ready(function() {
+              
+          $('#stars').on('starrr:change', function(e, value){
+            $('#count').html(value);
+          });
+          
+          $('#stars-existing').on('starrr:change', function(e, value){
+            $('#count-existing').html(value);
+          });
+        });
+
+</script>
+
+{% endblock %}

@@ -32,7 +32,7 @@
       <p> Few words about {{ session["user_name"] }} </p>
     </div>
 
-    <div class="search-info"><u><b>{{ session["user_name"] }}'s past searches:</u></b><br>
+    <div id="search-info" class="search-info"><u><b>{{ session["user_name"] }}'s past searches:</u></b><br>
       {% if past_searches|length > 0 %}
 
       {% for search in past_searches %}
@@ -64,7 +64,19 @@
     </div>
 
     <script>
-      $('')
+      // $('#user-search').addEventListener('click', function(){
+      //         $('#reviews').hide();
+      //         $('#search-info').show();
+      // }
+      //   )
+
+      // $('#user-reviews').addEventListener('click', function(){
+      //         $('#search-info').hide();
+      //         $('#reviews').hide();
+      // }
+      //   )
+
+      $('#reviews').hide();
 
     </script>
 

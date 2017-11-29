@@ -86,34 +86,3 @@ def search_past_hikes(user_id):
     past_searches = Search.query.filter_by(user_id=user_id).all()
 
     return past_searches
-
-
-# def search_past_reviews(user_id):
-#     """Take the user_id from server, query database and return the list of
-#     hikes the user has rated, along with the score"""
-
-#     # Take the user ID, join Review and hiketrail tables
-#     user_id = user_id
-#     past_reviews = db.session.query(Review.user_id, Review.score,
-#                                     Review.comment_description,
-#                                     Review.trail_id,
-#                                     HikeTrail.trail_name).join(HikeTrail).all()
-
-#     return past_reviews
-
-# def search_user_ratings(user_id):
-#     """Take the user_id from server, query database and return the list of
-#     hikes the user has rated, along with the score"""
-
-#     past_ratings = Rating.query.filter_by(user_id=user_id).all()
-
-#     return past_ratings
-
-
-# def search_user_comments(user_id):
-#     """Take the user_id from server, query database and return the list of
-#     hikes the user has commented"""
-
-#     past_comments = Comment.query.filter_by(user_id=user_id).all()
-
-#     return past_comments

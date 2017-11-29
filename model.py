@@ -32,34 +32,6 @@ class User(db.Model):
                                                  self.email)
 
 
-# class Rating(db.Model):
-#     """Rating of a hiking trail by a user."""
-
-#     __tablename__ = "ratings"
-
-#     rating_id = db.Column(db.Integer,
-#                           autoincrement=True,
-#                           primary_key=True)
-#     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-#     trail_id = db.Column(db.Integer, db.ForeignKey('hiketrails.trail_id'))
-#     score = db.Column(db.Integer, nullable=True)
-
-#     # Define relationship to user
-#     user = db.relationship("User",
-#                            backref=db.backref("ratings", order_by=rating_id))
-
-#     # Define relationship to hiketrails
-#     hiketrail = db.relationship("HikeTrail",
-#                                 backref=db.backref("ratings",
-#                                                    order_by=rating_id))
-
-#     def __repr__(self):
-#         """Provide helpful representation when printed."""
-
-#         s = "<Rating rating_id=%s trail_id=%s user_id=%s>"
-#         return s % (self.rating_id, self.trail_id, self.user_id)
-
-
 class Review(db.Model):
     """Review of a hiking trail by a user."""
 
@@ -87,34 +59,6 @@ class Review(db.Model):
 
         s = "<Rating review_id=%s trail_id=%s user_id=%s>"
         return s % (self.review_id, self.trail_id, self.user_id)
-
-
-# class Comment(db.Model):
-#     """Comments for a hiking trail by a user."""
-
-#     __tablename__ = "comments"
-
-#     comment_id = db.Column(db.Integer,
-#                            autoincrement=True,
-#                            primary_key=True)
-#     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
-#     trail_id = db.Column(db.Integer, db.ForeignKey('hiketrails.trail_id'))
-#     comment_description = db.Column(db.Text, nullable=True)
-
-#     # Define relationship to user
-#     user = db.relationship("User",
-#                            backref=db.backref("comments", order_by=comment_id))
-
-#     # Define relationship to hiketrails
-#     hiketrail = db.relationship("HikeTrail",
-#                                 backref=db.backref("comments",
-#                                                    order_by=comment_id))
-
-#     def __repr__(self):
-#         """Provide helpful representation when printed."""
-
-#         s = "<Comment comment_id=%s user_id=%s trail_id=%s>"
-#         return s % (self.comment_id, self.user_id, self.trail_id)
 
 
 class Search(db.Model):
