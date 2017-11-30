@@ -63,6 +63,8 @@
       {% endif %}
     </div>
 
+    {% block script %}
+
     <script>
       // $('#user-search').addEventListener('click', function(){
       //         $('#reviews').hide();
@@ -75,9 +77,16 @@
       //         $('#reviews').hide();
       // }
       //   )
+ 
+      function hideReviews(evt){
+        alert("I come here when user clicks on uer-search");
+      }
+      $('#user-search').addEventListener('click', hideReviews)
 
       $('#reviews').hide();
 
     </script>
+
+    {% endblock %}
 
     {% endblock %}

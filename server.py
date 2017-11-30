@@ -297,13 +297,23 @@ def add_review():
 
     score = request.form.get("score")
     comment_description = request.form.get("commentText")
-    trail_id = request.form["trail_id"]
+    trail_id = int(request.form["trail_id"])
+
+    # getting the user name from the form page, to get the user id and add it to
+    # reviews
+    user_name = request.form["name"]
+    session_user = User.query.filter_by(user_name=user_name).first()
+    user_id = session_user.user_id
 
     # add an order to our database here
+    new_review = Review(user_id=user_id, trail_id=trail_id,
+                        comment_description=comment_description,
+                        score=score)
 
-    print "\n\nNEW comment %s %s %s\n\n" % (
-        score, comment_description, trail_id)
-    return None
+    db.session.add(new_review)
+    db.session.commit()
+
+    return redirect('/')
 
 
 if __name__ == "__main__":

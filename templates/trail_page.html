@@ -63,9 +63,9 @@
 
     </div>
 
-    <input type="text" id="trail-id" name="trail_id" value="{{ trail_id }}">
-
-    <button type="button" id="add-review" onclick="submitComment()">Click me</button>
+    <input type="text"  id="trail_id" name="trail_id" value="{{ trail_id }}">
+    <input type="text"  id="name" name="name" value="{{ session['user_name'] }}">
+    <button type="button" id="add-review">Click me</button>
 
 </div>  
 <!-- End of container div -->
@@ -75,20 +75,30 @@
 {% block script %}
 
     <script>
-
+// Event listener for 'click' button to send score, comments, trail ID, user ID
+// to the server.
         let buttonText = document.querySelector('#add-review');
 
         function submitComment(evt) {
 
+            console.log("in submitcomment");
+            // Ajax way of creating form inputs for request.form in server
             let formInputs = {
                 "score": $('#count').text(),
                 "commentText": $("#comments").val(),
+                "trail_id" : $('#trail_id').val(),
+                "name": $('#name').val()
             };
 
-            $.post("/add-review",
-                   formInputs,
-                   submitComment);
-            }
+            // Sending 'Post' data via Ajax
+            $.post("/add-review", formInputs, submitResults);
+        }
+        // End of event listner function
+
+        function submitResults(results){
+            console.log("in submitResults");
+            console.log(results);
+        }
 
         buttonText.addEventListener('click', submitComment);
 
