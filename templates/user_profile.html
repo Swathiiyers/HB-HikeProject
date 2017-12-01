@@ -1,21 +1,11 @@
  {% extends 'base.html' %}
  {% block title %} {{ session["user_name"] }}'s Profile{% endblock %}
     
-     {% block content %}
-    <p>Welcome, {{ session["user_name"] }}</p> 
-    <nav class="navbar navbar-default sidebar" role="navigation">
-         <div class="container-fluid">
-         <div class="navbar-header">
-           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="bs-sidebar-navbar-collapse-1">
-             <span class="sr-only">Toggle navigation</span>
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-           </button>      
+  {% block div %} 
+     
          </div>
          <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
            <ul class="nav navbar-nav">
-             <li class="active"><a href="">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
                  <li id="user-search"><a href="">Past searches</a></li>
                  <li id="user-reviews"><a href="">Reviews</a></li>
 <!--                  <li><a href="">Comments</a></li> -->
@@ -23,67 +13,72 @@
                </ul>
              </li>          
            </ul>
-         </div>
-       </div>
-    </nav>
-    <div>
+  {% endblock %}
 
-    <div class="profile-info">
-      <p> Few words about {{ session["user_name"] }} </p>
+
+  {% block content %}
+    <p>Welcome, {{ session["user_name"] }}</p> 
+
+<div class="rows">
+    <div class="col-sm-6">
+    <div class="card">
+      <img src="/w3images/team2.jpg" alt="John" style="width:100%">
+      <h1>John Doe</h1>
+      <p class="title">Passionate Hiker!</p>
+        <div style="margin: 24px 0;">
+          <a href="#"><i class="fa fa-dribbble"></i></a> 
+          <a href="#"><i class="fa fa-twitter"></i></a>  
+          <a href="#"><i class="fa fa-linkedin"></i></a>  
+          <a href="#"><i class="fa fa-facebook"></i></a> 
+        </div>
+     <p><button>Contact</button></p>
     </div>
-
-    <div id="search-info" class="search-info"><u><b>{{ session["user_name"] }}'s past searches:</u></b><br>
-      {% if past_searches|length > 0 %}
-
-      {% for search in past_searches %}
-<!-- Creating button for every search result with details -->
-       <button type="button" onclick="window.location.href='/saved-results?city={{ search.city }}&state={{ search.state}}&radius={{ search.radius }}'">{{ search.city }}, {{ search.state}} within {{ search.radius }} miles!</button>
-             <input type = "hidden" name="city" value="{{ search.city }}">
-              <input type = "hidden" name="state" value="{{ search.state }}">
-              <input type = "hidden" name="radius" value="{{ search.radius }}"><br>
-
-      {% endfor %}
-
-      {% else %}   
-      <p> {{ session["user_name"] }} has no saved searches </p>
-      {% endif %}
-    </div><br><br>
-
-
-
-    <div id='reviews'><u><b>{{ session["user_name"] }}'s reviews </u></b>
-      {% if past_reviews|length > 0 %}
-      {% for review in past_reviews %}
-       <p>User has rated the Trail: {{ review.hiketrail.trail_name }}  - with a score of {{ review.score}}.<br>
-        Comments are: {{ review.comment_description }}</p><br><br>
-      {% endfor %}
-
-      {% else %}   
-      <p> {{ session["user_name"] }} has not reviewed any hike </p>
-      {% endif %}
+    <!-- End of card div -->
+    <b>About Me:</b>
     </div>
+    <!-- End of column1 -->
+
+
+    <div class="col-sm-6">
+
+      <!-- Start of past searches div -->
+      <div id="search-info" class="search-info"><u><b>{{ session["user_name"] }}'s past searches:</u></b><br>
+        {% if past_searches|length > 0 %}
+
+        {% for search in past_searches %}
+      <!-- Creating button for every search result with details -->
+         <button type="button" onclick="window.location.href='/saved-results?city={{ search.city }}&state={{ search.state}}&radius={{ search.radius }}'">{{ search.city }}, {{ search.state}} within {{ search.radius }} miles!</button><br>
+               <input type = "hidden" name="city" value="{{ search.city }}">
+                <input type = "hidden" name="state" value="{{ search.state }}">
+                <input type = "hidden" name="radius" value="{{ search.radius }}"><br>
+
+        {% endfor %}
+
+        {% else %}   
+        <p> {{ session["user_name"] }} has no saved searches </p>
+        {% endif %}
+      </div>
+      <!-- End of past searches div -->
+
+      <!-- Start of past reviews div -->
+      <div id='reviews'><u><b>{{ session["user_name"] }}'s reviews </u></b>
+        {% if past_reviews|length > 0 %}
+        {% for review in past_reviews %}
+          <b><p>Trail:</b> {{ review.hiketrail.trail_name }}
+          <b><p>Score:</b> {{ review.score }}
+          <b><p>Comment: {{ review.comment_title }}</b>
+          <b><p>Description:</b> {{ review.comment_description }}</p><br>
+        {% endfor %}
+
+        {% else %}   
+        <p> {{ session["user_name"] }} has not reviewed any hike </p>
+        {% endif %}
+      </div>
+      <!-- End of reviews div -->
 
     {% block script %}
 
     <script>
-      // $('#user-search').addEventListener('click', function(){
-      //         $('#reviews').hide();
-      //         $('#search-info').show();
-      // }
-      //   )
-
-      // $('#user-reviews').addEventListener('click', function(){
-      //         $('#search-info').hide();
-      //         $('#reviews').hide();
-      // }
-      //   )
- 
-      function hideReviews(evt){
-        alert("I come here when user clicks on uer-search");
-      }
-      $('#user-search').addEventListener('click', hideReviews)
-
-      $('#reviews').hide();
 
     </script>
 

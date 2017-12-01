@@ -282,13 +282,19 @@ def show_trailpage(trail_id):
         Displays the trail details with Review information"""
 
     trail = HikeTrail.query.get(trail_id)
+    trail_name = trail.trail_name
+    trail_description = trail.trail_description
+    trail_length = trail.trail_length
 
     # joining trail and reviews backref (to avoid join query)
     trail_reviews = trail.reviews
     # Search for campground and show the campground infor using the API based on latlong values
     # res = requests.get("http://api.amp.active.com/camping/campgrounds?landmarkName=true&landmarkLat=37.84035&landmarkLong=-122.4888889&xml=true&api_key=2chxq68e")
 
-    return render_template("trail_page.html", trail_reviews=trail_reviews, trail_id=trail_id)
+    return render_template("trail_page.html", trail_reviews=trail_reviews,
+                           trail_id=trail_id, trail_name=trail_name,
+                           trail_description=trail_description,
+                           trail_length=trail_length)
 
 
 @app.route("/add-review", methods=['POST'])
@@ -297,6 +303,7 @@ def add_review():
 
     score = request.form.get("score")
     comment_description = request.form.get("commentText")
+    comment_title = request.form.get("title")
     trail_id = int(request.form["trail_id"])
 
     # getting the user name from the form page, to get the user id and add it to
@@ -307,6 +314,7 @@ def add_review():
 
     # add an order to our database here
     new_review = Review(user_id=user_id, trail_id=trail_id,
+                        comment_title=comment_title,
                         comment_description=comment_description,
                         score=score)
 

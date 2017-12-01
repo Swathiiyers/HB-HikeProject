@@ -42,6 +42,7 @@ class Review(db.Model):
                           primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     trail_id = db.Column(db.Integer, db.ForeignKey('hiketrails.trail_id'))
+    comment_title = db.Column(db.Text, nullable=True)
     comment_description = db.Column(db.Text, nullable=True)
     score = db.Column(db.Integer, nullable=True)
 

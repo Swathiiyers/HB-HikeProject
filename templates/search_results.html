@@ -37,8 +37,8 @@
     </div>
 
 <!-- Start of maps div -->
-    <div class="col-sm-6">
-    <div id="map" class="results-map">           
+    <div class="col-sm-6" style="min-height: 250px;">
+    <div id="map" class="results-map" >           
         <script>
           function initMap() {
           // Taking the latlong dict values from python function
@@ -47,7 +47,7 @@
           var locCenter= locArray[0]["latlong"];
           console.log(locArray);
           var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
+            zoom: 10,
             center: locCenter
           });
           for (var i = 0; i < locArray.length; i++){

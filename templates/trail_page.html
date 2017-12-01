@@ -4,76 +4,85 @@
    {% block content %}
 
     {% if "user_name" in session %}
-    <h2> Hey, {{ session["user_name"] }}</h2>
+    <p>{{ session["user_name"] }}'s trail information page</p>
     {% endif %}
 
+    <h2>Trail Name: {{ trail_name }}</h2>
 <div class="container">
-   
+
     <div class="row">
-        <div class="col-sm-6" style="border-color: black">
-            {% for review in trail_reviews %}
-            <p>Comments: {{ review.comment_description}}</p>made by :{{ review.user.user_name }} <br>
-            {% endfor %}  
-        </div>
-
-        <div class="col-sm-6">
-        {% for review in trail_reviews %}
-            <p>{{ review.trail_id }} </p>
-        {% endfor %} 
-
-            <div style="float: left; padding: 8px 8px 8px 8px; border-right: 1px solid #ccc; background: yellow">
-                <a href="#">Add a review</a></div>
-
-            <div style="float: left; padding: 8px 0 7px 8px; background: yellow">
-                <a href="#">
-                    Read Reviews
-                </a>
-            </div>
-        </div>
-
-    </div> 
-    <!-- End of row 1 -->
-
-
-<!-- Row that displays the map and campground information -->
-    <div class="row">
+<!-- Column for image, desc, length, average rating and share buttons -->
         <div class="col-sm-8">
-            <p> Map centered at the city of the individual hike </p1>  
+
+            <div class="w3-content w3-display-container">
+              <img class="mySlides" src="../static/alum_rock_1.jpg" style="width:90%">
+              <img class="mySlides" src="../static/alum_rock_2.jpg" style="width:90%">
+
+              <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+              <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+
+            </div>
+
+            <script>
+            var slideIndex = 1;
+            showDivs(slideIndex);
+
+            function plusDivs(n) {
+              showDivs(slideIndex += n);
+            }
+
+            function showDivs(n) {
+              var i;
+              var x = document.getElementsByClassName("mySlides");
+              if (n > x.length) {slideIndex = 1}    
+              if (n < 1) {slideIndex = x.length}
+              for (i = 0; i < x.length; i++) {
+                 x[i].style.display = "none";  
+              }
+              x[slideIndex-1].style.display = "block";  
+            }
+            </script>
+
+          <h2>Description:</h2><br>
+          <p>{{ trail_description }}</p><br>
+          <h3>Trail length:</h3>{{ trail_length }} miles<br>
+          <br><h3> Average rating: 4 / 5 stars</h3>
+
         </div>
+        <!-- end of 1st column -->
 
-        <div class="col-sm-4">
-            <p> Campground info </p>  
+        <!-- Start of second column -->
+        <div class="col-sm-4" style="border-color: black">
+          <h2>Past reviews:</h2>
+            {% for review in trail_reviews %}
+            <b>{{ review.user.user_name }}: {{ review.comment_title }}</b><br>
+            <b>Rating:</b> {{ review.score }} stars<br>
+            <p>Comments: {{ review.comment_description}}</p><br>
+            {% endfor %}  
+
+            <h2>Add a review:</h2>
+            <div id="stars" class="starrr"></div>
+            You gave a rating of <span id="count">0</span> star(s)
+
+            <br><b>Add a comment:</b><br>
+            Comment title: <textarea id="title" rows="1"></textarea><br>
+            <textarea id="comments" rows="4" cols="50"></textarea><br>
+
+            <input type="hidden"  id="trail_id" name="trail_id" value="{{ trail_id }}">
+            <input type="hidden"  id="name" name="name" value="{{ session['user_name'] }}">
+            <button type="button" id="add-review">Submit</button>
         </div>
-    </div>
-
-
-<!-- Row that displays the ratings and comments information -->
-    <div class="row lead">
-        <div id="stars" class="starrr"></div>
-        You gave a rating of <span id="count">0</span> star(s)
-    </div>
-
-
-    <div class="row">
-        <div class="col-sm-6" style="border-color: black">
-            Add comments here: 
-            <textarea id="comments" rows="4" cols="50">
-
-            </textarea>
+        <!-- End of second column -->
 
     </div>
-
-    <input type="text"  id="trail_id" name="trail_id" value="{{ trail_id }}">
-    <input type="text"  id="name" name="name" value="{{ session['user_name'] }}">
-    <button type="button" id="add-review">Click me</button>
+    <!-- End of div row -->
 
 </div>  
 <!-- End of container div -->
-
 {% endblock %}
 
-{% block script %}
 
+{% block script %}
     <script>
 // Event listener for 'click' button to send score, comments, trail ID, user ID
 // to the server.
@@ -85,6 +94,7 @@
             // Ajax way of creating form inputs for request.form in server
             let formInputs = {
                 "score": $('#count').text(),
+                "title": $('#title').val(),
                 "commentText": $("#comments").val(),
                 "trail_id" : $('#trail_id').val(),
                 "name": $('#name').val()
