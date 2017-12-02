@@ -44,7 +44,7 @@
             </script>
 
           <h2>Description:</h2><br>
-          <p>{{ trail_description }}</p><br>
+          <p>{{ trail_description }}. {{ trail_directions }}</p><br>
           <h3>Trail length:</h3>{{ trail_length }} miles<br>
           <br><h3> Average rating: 4 / 5 stars</h3>
 
@@ -55,8 +55,9 @@
         <div class="col-sm-4" style="border-color: black">
           <h2>Past reviews:</h2>
             {% for review in trail_reviews %}
-            <b>{{ review.user.user_name }}: {{ review.comment_title }}</b><br>
+            <b>By:</b>{{ review.user.user_name }}<br>
             <b>Rating:</b> {{ review.score }} stars<br>
+            <u><i><b>{{ review.comment_title }}</u></i></b><br>
             <p>Comments: {{ review.comment_description}}</p><br>
             {% endfor %}  
 

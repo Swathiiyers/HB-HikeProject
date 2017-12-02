@@ -39,13 +39,15 @@ def add_to_HikeTrails_db(result_list):
         trail_name = result_list[i]["name"]
         trail_description = result_list[i]["activities"][0]["description"]
         trail_length = result_list[i]["activities"][0]["length"]
+        trail_directions = result_list[i]["directions"]
 
         check_trail = HikeTrail.query.filter_by(trail_id=trail_id).count()
 
         if check_trail == 0:
             new_trail = HikeTrail(trail_id=trail_id, trail_name=trail_name,
                                   trail_description=trail_description,
-                                  trail_length=trail_length)
+                                  trail_length=trail_length,
+                                  trail_directions=trail_directions)
             # Adding new user to the database and commit
             db.session.add(new_trail)
     db.session.commit()

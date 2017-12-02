@@ -285,6 +285,7 @@ def show_trailpage(trail_id):
     trail_name = trail.trail_name
     trail_description = trail.trail_description
     trail_length = trail.trail_length
+    trail_directions = trail.trail_directions
 
     # joining trail and reviews backref (to avoid join query)
     trail_reviews = trail.reviews
@@ -294,7 +295,8 @@ def show_trailpage(trail_id):
     return render_template("trail_page.html", trail_reviews=trail_reviews,
                            trail_id=trail_id, trail_name=trail_name,
                            trail_description=trail_description,
-                           trail_length=trail_length)
+                           trail_length=trail_length,
+                           trail_directions=trail_directions)
 
 
 @app.route("/add-review", methods=['POST'])
