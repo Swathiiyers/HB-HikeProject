@@ -38,38 +38,7 @@ for i in range(len(result_list)):
     print "\n"
     # print "\n"
 
-# code for checking length
-    # <script>
 
-    #   function getSearches(evt){
-
-    #     evt.preventDefault();
-    #     // if (past_searches.length > 0){
-    #     //   console.log("i successfully checked length");
-    #     //   var past_searches = {{ past_searches | tojson }};
-    #       $('.search-info').text("success");
-
-
-    #     console.log("success");
-    #   }
-
-    #   // function displaySearches(past_searches){
-    #   //   console.log("i come here");
-    #   //   for (let search in past_searches){
-
-    #   //     $('.search-info').append(search.city);
-    #   //   }
-
-    #         // var btn = document.createElement("BUTTON");
-    #         // var t = document.createTextNode("CLICK ME");
-    #         // btn.appendChild(t);
-    #         // $('.search-info').append(btn);
-
-    #   $('#user-search').click(getSearches);
-
-
-
-    # </script>
 
 
     # appending the lat, long value of dictionary to the list of latlong
@@ -129,23 +98,170 @@ for i in range(len(result_list)):
 # new_review2 = Review(user_id=1, trail_id=280, comment_description="Enjoyed the hike. Spectacular views! Recommend to all nature lovers" )
 # new_review3 = Review(user_id=2, trail_id=293, score=5, comment_description="Must-do place in every hiker's list! Great place to enjoy a sunny weekend morning!" )
 
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+nav.sidebar, .main{
+    -webkit-transition: margin 200ms ease-out;
+      -moz-transition: margin 200ms ease-out;
+      -o-transition: margin 200ms ease-out;
+      transition: margin 200ms ease-out;
+  }
+
+  .main{
+    padding: 10px 10px 0 10px;
+  }
+
+ @media (min-width: 765px) {
+
+    .main{
+      position: absolute;
+      width: calc(100% - 40px); 
+      margin-left: 40px;
+      float: right;
+    }
+
+    nav.sidebar:hover + .main{
+      margin-left: 200px;
+    }
+
+    nav.sidebar.navbar.sidebar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+      margin-left: 0px;
+    }
+
+    nav.sidebar .navbar-brand, nav.sidebar .navbar-header{
+      text-align: center;
+      width: 100%;
+      margin-left: 0px;
+    }
+    
+    nav.sidebar a{
+      padding-right: 13px;
+    }
+
+    nav.sidebar .navbar-nav > li:first-child{
+      border-top: 1px #e5e5e5 solid;
+    }
+
+    nav.sidebar .navbar-nav > li{
+      border-bottom: 1px #e5e5e5 solid;
+    }
+
+    nav.sidebar .navbar-nav .open .dropdown-menu {
+      position: static;
+      float: none;
+      width: auto;
+      margin-top: 0;
+      background-color: transparent;
+      border: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+
+    nav.sidebar .navbar-collapse, nav.sidebar .container-fluid{
+      padding: 0 0px 0 0px;
+    }
+
+    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+      color: #777;
+    }
+
+    nav.sidebar{
+      width: 200px;
+      height: 100%;
+      margin-left: -160px;
+      float: left;
+      margin-bottom: 0px;
+    }
 
 
-button {
-  border: none;
-  outline: 0;
-  display: inline-block;
-  color: white;
-  background-color: #000;
+    nav.sidebar li {
+      width: 100%;
+    }
+
+    nav.sidebar:hover{
+      margin-left: 0px;
+    }
+
+    .forAnimate{
+      opacity: 0;
+    }
+  }
+   
+  @media (min-width: 1330px) {
+
+    .main{
+      width: calc(100% - 200px);
+      margin-left: 200px;
+    }
+
+    nav.sidebar{
+      margin-left: 0px;
+      float: left;
+    }
+
+    nav.sidebar .forAnimate{
+      opacity: 1;
+    }
+  }
+
+  nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
+    color: #CCC;
+    background-color: transparent;
+  }
+
+  
+  nav:hover .forAnimate{
+    opacity: 1;
+  }
+  section{
+    padding-left: 15px;
+  }
+
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 30px;
   text-align: center;
-  cursor: pointer;
-  width: 100%;
+  text-decoration: none;
+  margin: 5px 2px;
+  float: right;
+  position: relative;
+  display: inline;
+}
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.checked {
+    color: orange;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.title {
+  color: grey;
   font-size: 18px;
+}
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+
+
+.bg_blur
+{
+    background-image:url('http://data2.whicdn.com/images/139218968/large.jpg');
+    height: 300px;
+    background-size: cover;
 }
 

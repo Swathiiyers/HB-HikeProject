@@ -20,16 +20,21 @@
 
 
 <div class="container" style="margin-top: 20px; margin-bottom: 20px;">
-  <div class="row panel">
+  <div class="row-panel">
     <div class="col-md-4 bg_blur ">
-          <a href="#" class="follow_btn hidden-xs">Follow</a>
+          <!-- <a href="#" class="follow_btn hidden-xs">Follow</a> -->
+          <img src="user_image2.png"/>
     </div>
+
+
         <div class="col-md-8  col-xs-12">
-           <img src="http://lorempixel.com/output/people-q-c-100-100-1.jpg" class="img-thumbnail picture hidden-xs" />
+           <img src="user_image2.png" class="img-thumbnail picture hidden-xs" />
            <img src="http://lorempixel.com/output/people-q-c-100-100-1.jpg" class="img-thumbnail visible-xs picture_mob" />
            <div class="header">
                 <h1>{{ session["user_name"] }}</h1>
                 <h4>Love hikes!</h4>
+                <b><i>About Me:</i></b><br>
+                A proud Sagittarian, a lackadaisical hard worker, turned into a Trekker, an ambidextrous chap, an avid Reader, sky - gazer, philosopher, music maniac,loves observing each facet of life..
                 <span></span>
            </div>
         </div>
@@ -43,16 +48,15 @@
     <div class="col-sm-6">
 
     <!-- End of card div -->
-    <b>About Me:</b><br>
-    A proud Sagittarian, a lackadaisical hard worker, turned into a Trekker, an ambidextrous chap, an avid Reader, sky - gazer, philosopher, music maniac,loves observing each facet of life..
+
     </div>
     <!-- End of column1 -->
 
 
-    <div class="col-sm-6">
+    <div class="col-sm-6" >
 
       <!-- Start of past searches div -->
-      <div id="search-info" class="search-info"><u><b>{{ session["user_name"] }}'s past searches:</u></b><br>
+      <div id="search-info" class="search-info" style="border: 2px solid green"><u><b>{{ session["user_name"] }}'s past searches:</u></b><br>
         {% if past_searches|length > 0 %}
 
         {% for search in past_searches %}
@@ -67,17 +71,17 @@
         {% else %}   
         <p> {{ session["user_name"] }} has no saved searches </p>
         {% endif %}
-      </div>
+      </div><br>
       <!-- End of past searches div -->
 
       <!-- Start of past reviews div -->
-      <div id='reviews'><u><b>{{ session["user_name"] }}'s reviews </u></b>
+      <div id='reviews' style="border: 2px solid green"><u><b>{{ session["user_name"] }}'s reviews </u></b>
         {% if past_reviews|length > 0 %}
         {% for review in past_reviews %}
           <b><p>Trail:</b> {{ review.hiketrail.trail_name }}
           <b><p>Score:</b> {{ review.score }}
           <b><p>Comment: {{ review.comment_title }}</b>
-          <b><p>Description:</b> {{ review.comment_description }}</p><br>
+          <b><p>Description:</b> {{ review.comment_description }}</p>
         {% endfor %}
 
         {% else %}   

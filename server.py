@@ -172,16 +172,6 @@ def show_searchpage():
 
     return render_template("search_page.html")
 
-# @app.route("/choose-search/<city>/<state>/<radius>")
-# def show_searchpage(city, state, radius):
-#     """Direct to the Hike search page upon button click"""
-
-#     city = city
-#     state = state
-#     radius = radius
-
-#     return redirect("search_page.html", city=city, state=state, radius=radius)
-
 
 @app.route("/search-by-loc")
 def find_loc():
