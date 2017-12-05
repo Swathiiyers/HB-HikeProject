@@ -152,7 +152,6 @@ def login_process():
         return redirect('/choose-login')
 
     #If user exists, add user_id to the sesssion.
-    flash("You were successfully logged in")
     # The user_id value (from the returned list) is added to the session dictionary
     session["user_name"] = check_user.user_name
     # user_name = session["user_name"]

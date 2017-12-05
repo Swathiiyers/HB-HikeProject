@@ -4,7 +4,7 @@
    {% block content %}
 
     {% if "user_name" in session %}
-    <h3>{{ session["user_name"] }}</h3>
+    <h3>Hello, {{ session["user_name"] }}! Below are the hikes listed on your criteria! </h3>
     {% endif %}
     
     <div class="map-wrapper">

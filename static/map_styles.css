@@ -8,6 +8,7 @@
 
 body,html{
     height: 100%;
+    padding: 10px;
   }
 
 
@@ -16,13 +17,13 @@ body,html{
 
 
 .navbar{
-  background-color: #1EB200;
+  background-color: #FFD569;
     box-shadow: 10px 10px 5px #888888
 }
 
 /* User profile pic div*/
 .row-panel{
-  background-color: yellow;
+  padding: 50px;
 }
 
 .well {
@@ -146,16 +147,20 @@ background-color: red;
 
 /* Div id of the search_result page div*/
 #boxes {
-     font-family: 'Dancing Script', cursive;
+     font-family: serif;
      color: #2E6CB2;
      font-size: 26px;
 
 }
 
 /* Div id of the find-my-location div */
-#location{
-  color: blue;
+#loc-radius{
+     font-family: serif;
+     color: #2E6CB2;
+     font-size: 26px;
+
 }
+
 
 #results-latlong {
   color: black;
@@ -163,10 +168,14 @@ background-color: red;
 
 /* Sytling for results page*/
 #save{
-    padding: 15px 32px;
-    font-family: 'Pacifico', cursive;
+/*    padding: 15px 32px;
+    font-family: serif;
     font-size: 20px;
     background-color: orange;
+    border-radius: 20px;
+    box-shadow: 10px 10px 5px #888888;*/
+    font-family: serif;
+    font-weight: bold;
 }
 
 .about-me{
@@ -175,7 +184,13 @@ background-color: red;
 }
 
 #reviews{
-     font-family: 'Dancing Script', cursive;
+    color: black;
+    font-size: 18px;
+    font-family: cursive;
+}
+
+#reviews h4{
+    color: #2E6CB2;
 }
 
 #results-latlong{
@@ -206,12 +221,6 @@ h5{
     font-size: 23px;
 }
 
-/* Search form*/
-#search-form b{
-    font-size: 26px;
-    color: #B23C00;
-    font-family: fantasy;
-}
 
 #location{
     font-family: fantasy;
@@ -238,7 +247,49 @@ h2{
     background-color: #B6CDFF;
 }
 
+#go{
+    font-family: serif;
+    font-weight: bold;
+}
+
+#find-loc{
+      font-family: serif;  
+      font-weight: bold;
+}
+
+#find-loc p{
+    font-family: serif;
+    color: #2E6CB2;
+}
+
 #go:hover{
     background-color: #B6CDFF;
 }
+
+.profile{
+    padding-left: 50px;
+}
  
+button{
+    font-family: serif;
+}
+
+.about-me p{
+    font-family: sans-serif;
+     color: #2E6CB2;
+}
+
+.profile{
+    margin-left: 40px;
+    padding-bottom: 50px;
+}
+
+#search-buttons{
+    border-radius: 12px;
+    font-weight: bold;
+    color: #2E6CB2 
+}
+
+#search-buttons:hover{
+    background-color: #B6CDFF;
+}

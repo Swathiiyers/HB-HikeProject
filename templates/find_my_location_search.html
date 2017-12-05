@@ -7,29 +7,28 @@
 {% block content %}
 
 {% if "user_name" in session %}
-<h5> Welcome, {{ session["user_name"] }}. Do we have hiking trails around us?<br>
-Let's find out!</h5><br><br>
+<h3> Hello, {{ session["user_name"] }}. Do we have hiking trails around us?
+Let's find out!..</h3><br><br>
 {% endif %}
 
 <div id = "location" align = "center">
-<h3>Click the button below to search hikes by your current location!</h3>
 
 <!-- Button for getting the current Lat-long position.
 Upon click, the button prints current latlong on text fields.
 Note that this button is outside of the 'form' tags-->
 
-<button id="find-loc" onclick="getLocation()">Find my current location</button><br>
+<button id="find-loc" onclick="getLocation()"><p>Find my current location</p></button><br>
 
 
 <form action="/search-hike" method="POST" id="loc-radius">
 
 
-<input type="hidden" name="curr-lat" id="curr-lat"><br>
-<input type="hidden" name="curr-long" id="curr-long"><br>
+<input type="hidden" name="curr-lat" id="curr-lat">
+<input type="hidden" name="curr-long" id="curr-long">
 
 
-<h3>We secretly found where you are!! <br>
-Please select the radius range(in miles) and hit 'Go'!: </h3>
+<br>We secretly found where you are!! <br>
+Please select the radius range(in miles):
                 <select name="radius" required>
                     <option value="5">5</option>
                     <option value="10">10</option>
