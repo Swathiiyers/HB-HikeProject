@@ -29,9 +29,14 @@ body,html{
 
 .well {
     text-align:center;
-    background-color: default;
 }
 
+.well.spaced{
+    background: url(light-veneer.png);
+    color: brown;
+    font-size: 24px;
+    font-family: 'Courgette', cursive;
+}
 /* Background color for the body tag of every page*/
 body {
 font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
