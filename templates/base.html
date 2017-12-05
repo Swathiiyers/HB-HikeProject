@@ -25,38 +25,39 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
 
-    <div class="navbar-header">
-        <p class="navbar-brand">Welcome to Hike-bright! The search engine for hikers, travellers, explorers...!</a>
-    </div>
+        <div class="navbar-header">
+            <p class="navbar-brand">Welcome to Hike-bright! The search engine for hikers, travellers, explorers...!</a>
+        </div>
 
-    {% block div %} {% endblock %}
-        
-    {% if "user_name" in session %}
-        <ul class="nav navbar-nav navbar-right" id="hide">
-        <li><a href="/logout">Logout</a></li>
+        {% block div %} {% endblock %}
+            
+            {% if "user_name" in session %}
+                <ul class="nav navbar-nav navbar-right" id="hide">
+                <li><a href="/logout">Logout</a></li>
 
-        <ul class="nav navbar-nav navbar-right" id="hide">
-        <li><a href="/user-profile/{{session['user_name']}}">My profile</a></li>
-        {% else %}
-        <ul class="nav navbar-nav navbar-right" id="hide">
-        <li><a href="/choose-login">Login</a></li>
-    {% endif %}     
-    </ul>
-
-    {% if "user_name" not in session %}
-        <ul class="nav navbar-nav navbar-right">
-        <li><a href="/register">Register</a></li>
+            <ul class="nav navbar-nav navbar-right" id="hide">
+                <li><a href="/user-profile/{{session['user_name']}}">My profile</a></li>
+                {% else %}
+                <ul class="nav navbar-nav navbar-right" id="hide">
+                <li><a href="/choose-login">Login</a></li>
+            {% endif %}     
             </ul>
-        </ul>
-    {% endif %}
 
-    <ul class="nav navbar-nav navbar-right">
-        <li><a href="/search-by-loc">Find-my-location</a></li>      
-    </ul>
+            {% if "user_name" not in session %}
+                <ul class="nav navbar-nav navbar-right">
+                <li><a href="/register">Register</a></li>
+                    </ul>
+                </ul>
+            {% endif %}
 
-    <ul class="nav navbar-nav navbar-right">
-        <li><a href="/choose-search">Search</a></li>       
-    </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/search-by-loc">Find-my-location</a></li>      
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/choose-search">Search</a></li>       
+            </ul>
+
 
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

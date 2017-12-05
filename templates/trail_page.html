@@ -44,9 +44,14 @@
             </script>
           <div id="indiv-trail">
           <h3>Description:</h3>
-          <p>{{ trail_description }}. {{ trail_directions }}</p><br>
-          <h3>Trail length:</h3><p>{{ trail_length }} miles</p>
-          <br><h3> Average rating:</h3><p> 4 / 5 stars</p>
+          <p>{{ trail_description }}. {{ trail_directions }}</p>
+              {% if trail_length == 0 %}
+              <h3>Trail length:</h3><p>3.0 miles</p>
+              {% else %}
+              <h3>Trail length:</h3><p>{{ trail_length }} miles</p>
+              {% endif %}
+              <h3> Average rating:</h3><p> 5.0 / 5 stars</p>
+
         </div>
         </div>
         <!-- end of 1st column -->
@@ -66,7 +71,7 @@
             <div id="stars" class="starrr"></div>
             You gave a rating of <span id="count">0</span> star(s)
             <p>Comment title: </p><textarea id="title" rows="1"></textarea><br>
-            <p>Add comment notes: </p><textarea id="comments" rows="4" cols="50"></textarea><br>
+            <p>Add comment notes: </p><textarea id="comments" rows="4" cols="20"></textarea><br>
 
             <input type="hidden"  id="trail_id" name="trail_id" value="{{ trail_id }}">
             <input type="hidden"  id="name" name="name" value="{{ session['user_name'] }}">

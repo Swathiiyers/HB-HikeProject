@@ -24,9 +24,12 @@
                     <a href="/trail-page/{{ (result['unique_id']) }}"> <li><h4>Trail: {{ (result["name"]) }}</h4></li></a>
        <!--              <li>Hiking Trail ID: {{ (result["unique_id"]) }}</li> -->
                     <b>Description:</b> {{ result["activities"][0]["description"] }}<br>
-                    <b>Length:</b>{{ result["activities"][0]["length"] }}<br><br>
+                    {% if result["activities"][0]["length"] == 0 %}
+                      <b>Length: </b>3.0 miles<br><br>
+                    {% else %}
+                      <b>Length: </b>{{ result["activities"][0]["length"] }} miles<br><br>
 <!--                     {{ result["activities"][0]["url"] }} -->
-
+                    {% endif %}
 
                 </ul>
               </div><br>

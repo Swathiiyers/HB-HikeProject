@@ -18,7 +18,7 @@ app.secret_key = "ABC"
 
 app.jinja_env.undefined = StrictUndefined
 app.jinja_env.auto_reload = True
-app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = False
+app.config["DEBUG_TB_INTERCEPT_REDIRECTS"] = True
 
 
 # Home page
@@ -276,6 +276,7 @@ def show_trailpage(trail_id):
     trail_length = trail.trail_length
     trail_directions = trail.trail_directions
 
+    # Calculate average rating of the given hike
     # joining trail and reviews backref (to avoid join query)
     trail_reviews = trail.reviews
     # Search for campground and show the campground infor using the API based on latlong values
@@ -318,7 +319,7 @@ def add_review():
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
-    app.debug = True
+    app.debug = False
 
     connect_to_db(app)
 

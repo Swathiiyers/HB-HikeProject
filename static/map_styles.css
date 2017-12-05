@@ -8,7 +8,7 @@
 
 body,html{
     height: 100%;
-    padding: 10px;
+    /*padding: 10px;*/
   }
 
 
@@ -18,7 +18,8 @@ body,html{
 
 .navbar{
   background-color: #FFD569;
-    box-shadow: 10px 10px 5px #888888
+    box-shadow: 10px 10px 5px #888888;
+
 }
 
 /* User profile pic div*/
@@ -27,12 +28,9 @@ body,html{
 }
 
 .well {
-
-    background-color:darkgrey;
-    text-align:center
-
+    text-align:center;
+    background-color: default;
 }
-
 
 /* Background color for the body tag of every page*/
 body {
@@ -40,11 +38,9 @@ font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 20px;
 line-height: 1.42857143;
 color: black;
-/* Background color for the user-profile*/
-/*background-color: #F1F1F1;*/
-    background-size: cover;
-/*    background: url(circles-light.png);*/
-background-color: #fff;
+background-size: cover;
+background: url(light-veneer.png);
+/*background-color: #fff;*/
 }
 
 
@@ -139,6 +135,9 @@ background-color: red;
     }
 }
 
+.container-fluid{
+    color: #2E6CB2;
+}
 /* User profile */
 
 #profile-searches {
@@ -202,6 +201,12 @@ background-color: red;
     font-family: 'Courgette', cursive;
 }
 
+#homepage-div p{
+    font-family: 'Courgette', cursive;
+    color: #2E6CB2;
+    font-size: 24px;
+}
+
 .trail-details{
         font-family: 'Courgette', cursive;
 }
@@ -221,6 +226,15 @@ h5{
     font-size: 23px;
 }
 
+.navbar-default .navbar-nav > li > a {
+    color: #2E6CB2;
+    font-family: 'Courgette', cursive;
+}
+
+.navbar-brand{
+    color: #2E6CB2;
+    font-family: 'Courgette', cursive;
+}
 
 #location{
     font-family: fantasy;
