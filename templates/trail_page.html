@@ -7,19 +7,19 @@
     <p>{{ session["user_name"] }}'s trail information page</p>
     {% endif %}
 
-    <h2>Trail Name: {{ trail_name }}</h2>
+    <h3 align="center">{{ trail_name }}</h3>
 <div class="container">
 
     <div class="row">
 <!-- Column for image, desc, length, average rating and share buttons -->
-        <div class="col-sm-8">
+        <div class="col-sm-8" class="trail-details">
 
             <div class="w3-content w3-display-container">
-              <img class="mySlides" src="../static/alum_rock_1.jpg" style="width:90%">
+              <img class="mySlides" src="../static/smoky_mountain.jpg" style="width:90%">
               <img class="mySlides" src="../static/alum_rock_2.jpg" style="width:90%">
 
-              <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-              <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+              <button class="w3-button w3-black w3-display-left car-btn prev" onclick="plusDivs(-1)">&#10094;</button>
+              <button class="w3-button w3-black w3-display-right car-btn next" onclick="plusDivs(1)">&#10095;</button>
 
             </div>
 
@@ -42,32 +42,31 @@
               x[slideIndex-1].style.display = "block";  
             }
             </script>
-
-          <h2>Description:</h2><br>
+          <div id="indiv-trail">
+          <h3>Description:</h3>
           <p>{{ trail_description }}. {{ trail_directions }}</p><br>
-          <h3>Trail length:</h3>{{ trail_length }} miles<br>
-          <br><h3> Average rating: 4 / 5 stars</h3>
-
+          <h3>Trail length:</h3><p>{{ trail_length }} miles</p>
+          <br><h3> Average rating:</h3><p> 4 / 5 stars</p>
+        </div>
         </div>
         <!-- end of 1st column -->
 
         <!-- Start of second column -->
-        <div class="col-sm-4" style="border-color: black">
+        <div class="col-sm-4" id="trail-comments" style=" color: black;">
           <h2>Past reviews:</h2>
             {% for review in trail_reviews %}
-            <b>By:</b>{{ review.user.user_name }}<br>
-            <b>Rating:</b> {{ review.score }} stars<br>
-            <u><i><b>{{ review.comment_title }}</u></i></b><br>
-            <p>Comments: {{ review.comment_description}}</p><br>
+            <div style="border-bottom: 1px dotted grey">
+            <b>By:</b>{{ review.user.user_name }} ({{ review.score }} stars)<br>
+            <u><i><b>{{ review.comment_title }}</u></i></b>
+            <p>{{ review.comment_description}}</p>
+          </div>
             {% endfor %}  
 
             <h2>Add a review:</h2>
             <div id="stars" class="starrr"></div>
             You gave a rating of <span id="count">0</span> star(s)
-
-            <br><b>Add a comment:</b><br>
-            Comment title: <textarea id="title" rows="1"></textarea><br>
-            <textarea id="comments" rows="4" cols="50"></textarea><br>
+            <p>Comment title: </p><textarea id="title" rows="1"></textarea><br>
+            <p>Add comment notes: </p><textarea id="comments" rows="4" cols="50"></textarea><br>
 
             <input type="hidden"  id="trail_id" name="trail_id" value="{{ trail_id }}">
             <input type="hidden"  id="name" name="name" value="{{ session['user_name'] }}">

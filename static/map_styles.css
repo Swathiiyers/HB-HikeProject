@@ -2,6 +2,7 @@
   height: 700px;
   width: 550px;
   text-align: center;
+    box-shadow: 10px 10px 5px #888888
 
 }
 
@@ -13,12 +14,9 @@ body,html{
 /*CSS styling for user-profile page*/
 
 
-*{
-    font-family: 'Open Sans', sans-serif;
-}
 
 .navbar{
-  background-color: #ADFF2F;
+  background-color: #1EB200;
     box-shadow: 10px 10px 5px #888888
 }
 
@@ -28,44 +26,37 @@ body,html{
 }
 
 .well {
-    margin-top:-20px;
-    /* Background color for the twitter, fb icons*/
-    background-color:#007FBD;
-    border:2px solid #0077B2;
-    text-align:center;
-    cursor:pointer;
-    font-size: 25px;
-    padding: 15px;
-    border-radius: 0px !important;
-}
 
-.well:hover {
-    margin-top:-20px;
-    background-color:#0077B2;
-    border:2px solid #0077B2;
-    text-align:center;
-    cursor:pointer;
-    font-size: 25px;
-    padding: 15px;
-    border-radius: 0px !important;
-    border-bottom : 2px solid rgba(97, 203, 255, 0.65);
+    background-color:darkgrey;
+    text-align:center
+
 }
 
 
 /* Background color for the body tag of every page*/
 body {
-font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-font-size: 14px;
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 20px;
 line-height: 1.42857143;
-color: #fff;
+color: black;
 /* Background color for the user-profile*/
-background-color: #F1F1F1;
+/*background-color: #F1F1F1;*/
+    background-size: cover;
+/*    background: url(circles-light.png);*/
+background-color: #fff;
 }
 
 
+.car-btn{
 
+    position: absolute;
+    top: 25%;
+    opacity: 0.5;
+}
 
-
+.next{
+    right: 4.5em;
+}
 .follow_btn {
     text-decoration: none;
     position: absolute;
@@ -150,12 +141,15 @@ background-color: red;
 /* User profile */
 
 #profile-searches {
-  color: red;
+  color: green;
 }
 
 /* Div id of the search_result page div*/
 #boxes {
-  color: green;
+     font-family: 'Dancing Script', cursive;
+     color: #2E6CB2;
+     font-size: 26px;
+
 }
 
 /* Div id of the find-my-location div */
@@ -165,5 +159,86 @@ background-color: red;
 
 #results-latlong {
   color: black;
+}
+
+/* Sytling for results page*/
+#save{
+    padding: 15px 32px;
+    font-family: 'Pacifico', cursive;
+    font-size: 20px;
+    background-color: orange;
+}
+
+.about-me{
+    color: #3A1AFF;
+    font-family: 'Lobster', cursive;;
+}
+
+#reviews{
+     font-family: 'Dancing Script', cursive;
+}
+
+#results-latlong{
+    font-family: sans-serif;
+    font-size: 18px;
+}
+
+#results-latlong a{
+    font-family: 'Courgette', cursive;
+}
+
+.trail-details{
+        font-family: 'Courgette', cursive;
+}
+
+h3{
+    font-size: 24px;
+    font-family: fantasy;
+    color: #1EB200;
+}
+
+
+h4{
+    font-size: 25px;
+}
+
+h5{
+    font-size: 23px;
+}
+
+/* Search form*/
+#search-form b{
+    font-size: 26px;
+    color: #B23C00;
+    font-family: fantasy;
+}
+
+#location{
+    font-family: fantasy;
+     color: #B23C00;
+     font-size: 24px;
+}
+
+#indiv-trail p{
+    font-family: serif;
+}
+
+h2{
+    font-size: 24px;
+    font-family: fantasy;
+    color: #5322B2;
+}
+
+#add-review:hover{
+    background-color: #B6CDFF;
+
+}
+
+#find-loc:hover {
+    background-color: #B6CDFF;
+}
+
+#go:hover{
+    background-color: #B6CDFF;
 }
  

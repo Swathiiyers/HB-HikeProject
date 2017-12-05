@@ -21,20 +21,14 @@
 
 <div class="container" style="margin-top: 20px; margin-bottom: 20px;">
   <div class="row-panel">
-    <div class="col-md-4 bg_blur ">
-          <!-- <a href="#" class="follow_btn hidden-xs">Follow</a> -->
-          <img src="user_image2.png"/>
-    </div>
-
-
-        <div class="col-md-8  col-xs-12">
-           <img src="user_image2.png" class="img-thumbnail picture hidden-xs" />
+        <div class="col-md-8  col-xs-12 ">
+           <img src="/static/user_image2.png" class="img-thumbnail picture hidden-xs" style="border: 2px solid black"/>
            <img src="http://lorempixel.com/output/people-q-c-100-100-1.jpg" class="img-thumbnail visible-xs picture_mob" />
-           <div class="header">
+           <div class="header about-me">
                 <h1>{{ session["user_name"] }}</h1>
                 <h4>Love hikes!</h4>
-                <b><i>About Me:</i></b><br>
-                A proud Sagittarian, a lackadaisical hard worker, turned into a Trekker, an ambidextrous chap, an avid Reader, sky - gazer, philosopher, music maniac,loves observing each facet of life..
+                <b><i><u>About Me:</i></b></u><br>
+                <h5>A proud Sagittarian, a lackadaisical hard worker, turned into a Trekker, an ambidextrous chap, an avid Reader, sky - gazer, philosopher, music maniac, love observing each facet of life..</h5>
                 <span></span>
            </div>
         </div>
@@ -42,55 +36,62 @@
 
 </div>
 
-
+<br><br>
 
 <div class="rows" id="profile-searches">
-    <div class="col-sm-6">
 
-    <!-- End of card div -->
 
+      <!-- Start of past reviews div -->
+
+      <div class="col-sm-6">
+        <h3 style="border-bottom: 3px solid blue">Past reviews:</h3>
+        <div id='reviews'>
+        {% if past_reviews|length > 0 %}
+        {% for review in past_reviews %}
+        <div style="border-bottom: 1px solid grey">
+        <b style="font-family: 'Arapey', serif";>{{ session["user_name"] }} wrote a review:</b>
+
+            <h3 style="font-family: 'Arapey', serif";>{{ review.hiketrail.trail_name }} </h3>
+            <p style="font-family: 'Arapey', serif";>Score: {{ review.score }}</p> 
+            <p style="font-family: 'Arapey', serif";><u>{{ review.comment_title }}</u></p>
+            <p style="font-family: 'Arapey', serif";><i>{{ review.comment_description }}</p></i>
+        </div><br>
+        <!-- End of past reviews individual div -->
+          {% endfor %}
+
+          {% else %}   
+          <p> {{ session["user_name"] }} has not reviewed any hike </p>
+          {% endif %}
+        </div>
     </div>
-    <!-- End of column1 -->
+      <!-- End of reviews div -->
 
-
-    <div class="col-sm-6" >
+    <div class="col-sm-4" >
 
       <!-- Start of past searches div -->
-      <div id="search-info" class="search-info" style="border: 2px solid green"><u><b>{{ session["user_name"] }}'s past searches:</u></b><br>
+      <h3 style="border-bottom: 3px solid blue">Past searches:</h3>
+      <div id="search-info" class="search-info">
         {% if past_searches|length > 0 %}
 
         {% for search in past_searches %}
       <!-- Creating button for every search result with details -->
+      <ul>
          <button type="button" onclick="window.location.href='/saved-results?city={{ search.city }}&state={{ search.state}}&radius={{ search.radius }}'">{{ search.city }}, {{ search.state}} within {{ search.radius }} miles!</button><br>
                <input type = "hidden" name="city" value="{{ search.city }}">
                 <input type = "hidden" name="state" value="{{ search.state }}">
                 <input type = "hidden" name="radius" value="{{ search.radius }}"><br>
-
+      </ul>
         {% endfor %}
 
         {% else %}   
         <p> {{ session["user_name"] }} has no saved searches </p>
         {% endif %}
       </div><br>
-      <!-- End of past searches div -->
+    </div>
+    <!-- End of past searches div -->
 
-      <!-- Start of past reviews div -->
-      <div id='reviews' style="border: 2px solid green"><u><b>{{ session["user_name"] }}'s reviews </u></b>
-        {% if past_reviews|length > 0 %}
-        {% for review in past_reviews %}
-          <b><p>Trail:</b> {{ review.hiketrail.trail_name }}
-          <b><p>Score:</b> {{ review.score }}
-          <b><p>Comment: {{ review.comment_title }}</b>
-          <b><p>Description:</b> {{ review.comment_description }}</p>
-        {% endfor %}
-
-        {% else %}   
-        <p> {{ session["user_name"] }} has not reviewed any hike </p>
-        {% endif %}
-      </div>
-      <!-- End of reviews div -->
-
-
+</div>
+<!-- End of row div -->
 
 
 

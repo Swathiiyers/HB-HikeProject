@@ -6,11 +6,9 @@
 
 
         {% if "user_name" in session %}
-        <h2> Hey, {{ session["user_name"] }}</h2>
+        <h3> Welcome, {{ session["user_name"] }}! Search for your favorite hike!</h3>
         {% endif %}
-
-        <h2>Search your favorite hike!</h1><br>
-
+<br><br>
 
 <!-- Adding maps below on the results page. 
 @TODO: Note that this is just a dummy map, and I need to pass live variables here
@@ -18,17 +16,17 @@ to display markers according to the search_results -->
     <div id="boxes" align = "center">
         <form action="/search-hike" id="search-form" method="POST">
 
-                Enter the City: <input type="text" name="city"><br><br>
-                Enter the State: <input type="text" name="state"><br><br>
-                Select the radius range: 
-                <select name="radius" required>
+                <h3>Enter the City:</h3> <input type="text" name="city" style="border: 1px solid grey"><br><br>
+                <h3> Enter the State:</h3><input type="text" name="state" style="border: 1px solid grey"><br><br>
+                <h3>Within how many miles are you searching for your fun hike?:
+                <select name="radius" required style="border: 1px solid grey">
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="15">15</option>
                     <option value="20">20</option>
-                </select><br>
+                </select></h4>
 
-                <input type="submit" id="go" name="search" value="Go" />
+                <input type="submit" id="go" name="search" value="Go" style="border: 1px solid grey" />
         </form>
     </div>
 <!--         // <script src="../static/map_search.js"></script> -->

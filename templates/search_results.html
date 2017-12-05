@@ -4,7 +4,7 @@
    {% block content %}
 
     {% if "user_name" in session %}
-    <h2> Hey, {{ session["user_name"] }}</h2>
+    <h3>{{ session["user_name"] }}</h3>
     {% endif %}
     
     <div class="map-wrapper">
@@ -16,16 +16,16 @@
               <p> Sorry, there are no hikes listed :(</p>
 
           {% else %}
-          <p> The results are: </p>
+          <p> Below are the hikes listed on your criteria! </p>
               {% for result in result_list %}
 
               <div id={{ (result["unique_id"]) }} style="border: 2px solid green">
                 <ul>
-                    <a href="/trail-page/{{ (result['unique_id']) }}"> <li>Trail: {{ (result["name"]) }}</li></a>
+                    <a href="/trail-page/{{ (result['unique_id']) }}"> <li><h4>Trail: {{ (result["name"]) }}</h4></li></a>
        <!--              <li>Hiking Trail ID: {{ (result["unique_id"]) }}</li> -->
                     <b>Description:</b> {{ result["activities"][0]["description"] }}<br>
                     <b>Length:</b>{{ result["activities"][0]["length"] }}<br><br>
-                    {{ result["activities"][0]["url"] }}
+<!--                     {{ result["activities"][0]["url"] }} -->
 
 
                 </ul>
@@ -79,7 +79,11 @@
 
             markerId = this.id;
             console.log(markerId);
-            $('#'+markerId).css('background-color','grey')
+            $('#'+markerId).css('background-color','#8DFF5A')
+
+            // $('#'+markerId).hover(function() {
+            //   $(this).css("background-color","grey")
+            // });
 
             $('html, body').animate({
                     scrollTop: $("#"+markerId).offset().top
@@ -100,7 +104,7 @@
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key={{ google_map_key }}&callback=initMap"
         async defer></script>  
-    </div>  
+    </div> <br><br> 
   </div>
     <!-- End of maps div -->
 
@@ -110,7 +114,7 @@
         {% if (curr_lat == 0.0): %}
         <div align="center">
         <form action="/save-search" method = "POST">
-        <input type="submit" id="save" name="save-search" value="Save searches" align="center" />
+        <input type="submit" id="save" name="save-search" value="Save this search" align="center" />
         <input type = "hidden" name="city" value="{{ city }}">
         <input type = "hidden" name="state" value="{{ state }}">
         <input type = "hidden" name="radius" value="{{ radius }}">
