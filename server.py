@@ -260,7 +260,7 @@ def save_searches():
                                 radius=radius, searched_at=datetime.datetime.utcnow())
             db.session.add(new_search)
             db.session.commit()
-            flash("Search added successfully")
+
 
     return redirect("/user-profile/%s" % user_name)
 

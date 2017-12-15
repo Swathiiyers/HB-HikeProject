@@ -18,7 +18,8 @@ body,html{
 
 .navbar{
   background-color: #FFD569;
-    box-shadow: 10px 10px 5px #888888;
+/*    box-shadow: 10px 10px 5px #888888;*/
+    border: 1px solid #2E6CB2;
 
 }
 
